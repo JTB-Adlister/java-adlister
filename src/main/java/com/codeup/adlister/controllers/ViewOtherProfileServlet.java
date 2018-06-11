@@ -22,5 +22,16 @@ public class ViewOtherProfileServlet extends HttpServlet {
         }
         request.getRequestDispatcher("/WEB-INF/viewProfile.jsp").forward(request, response);
     }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("userInfo");
+        User user = DaoFactory.getUsersDao().findByUsername(name);
+        int userid = (int) user.getId();
+        List<Ad> userAds = DaoFactory.getAdsDao().listByUser(userid);
+        System.out.println(request.getSession().getAttribute("role").toString());
+        request.setAttribute("viewUserAds", userAds);
+        request.setAttribute("viewUserName", user.getUsername());
+        request.setAttribute("viewUserId", user.getId());
+        request.getRequestDispatcher("/WEB-INF/viewProfile.jsp").forward(request, response);
 
+    }
 }

@@ -45,6 +45,8 @@ public class LoginServlet extends HttpServlet {
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("userId", id);
                 request.getSession().setAttribute("username", user.getUsername());
+                request.getSession().setAttribute("role", user.getRole());
+                System.out.println("User Role is " + user.getRole());
 
                 if (pagename == null) {
                     pagename = "index";

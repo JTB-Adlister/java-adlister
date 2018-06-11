@@ -13,6 +13,7 @@
             <div class="form-group">
                 <label for="username">Username</label>
                 <input id="username" name="username" class="form-control" type="text">
+                <p>${message}</p>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>

@@ -32,6 +32,7 @@
     <%
     }
     else { %>
+    <li><a href="register">Register</a></li>
 
     <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="login btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
     <ul class="dropdown-menu dropdown-menu-right mt-2">

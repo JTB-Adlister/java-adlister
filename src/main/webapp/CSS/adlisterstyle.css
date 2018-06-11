@@ -1,0 +1,82 @@
+nav {
+    list-style-type: none;
+    padding: 1em;
+    background-color: #2D3E49;
+    margin-bottom: 1em;
+}
+
+li {
+    display:inline-block;
+    padding-right: 2em;
+}
+
+a, .login{
+    color: #FFF;
+}
+
+.search, .login {
+    float: right;
+    margin-left: 2em;
+}
+
+.ads {
+    float: left;
+    margin: 1em;
+}
+
+button:focus {
+    outline: 0;
+}
+
+.navbar .dropdown-menu .form-control {
+    width: 300px;
+}
+
+.login {
+    padding: 2px 5px;
+    border: none;
+}
+
+.loginform {
+    margin: 0 auto;
+}
+
+.create, .delete{
+    float: right;
+    position: absolute;
+    right: 1em;
+}
+
+h1, h3 {
+    float: left;
+}
+
+.adContainer {
+    clear: both;
+    margin: auto;
+    width: 80%;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+div p {
+    clear: both;
+}
+
+body {
+    background-color: #BFC8CE;
+}
+
+
+.adDesc {
+    padding-left: 1em;
+    clear: both;
+    margin-bottom: 0;
+}
+
+.form-group {
+    clear: both;
+}

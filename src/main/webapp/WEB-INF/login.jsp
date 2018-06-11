@@ -21,5 +21,6 @@
             <input type="submit" class="btn btn-primary btn-block" value="Log In">
         </form>
     </div>
+    <%@ include file="/WEB-INF/partials/scripts.jsp" %>
 </body>
 </html>

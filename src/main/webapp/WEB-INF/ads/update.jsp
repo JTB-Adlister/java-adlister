@@ -8,15 +8,15 @@
 </head>
 <body>
 <div class="container">
-    <h1>Create a new Ad</h1>
-    <form action="/ads/create" method="post">
+    <h1>Update an Ad</h1>
+    <form action="ads/create" method="post">
         <div class="form-group">
             <label for="title">Title</label>
-            <input id="title" name="title" class="form-control" type="text">
+            <input id="title" name="title" class="form-control" type="text" value="${title}">
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="description" class="form-control"></textarea>
+            <textarea id="description" name="description" class="form-control">${description}</textarea>
         </div>
 
         <c:forEach var="Category" items="${sessionScope.categories}">

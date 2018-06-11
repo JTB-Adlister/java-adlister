@@ -26,7 +26,8 @@
 
             <form action="/showinfo" method="post">
                 <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
-                <input id="adInfo" name="adInfo" type="submit" value=${ad.id}>
+                <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
+                <input type="submit" value="View Ad">
             </form>
         </div>
 

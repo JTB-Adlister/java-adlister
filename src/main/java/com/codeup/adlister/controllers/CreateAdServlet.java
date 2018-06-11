@@ -33,9 +33,12 @@ public class CreateAdServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
+
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        if(title.isEmpty()||description.isEmpty()){
+        String[] titles = request.getParameterValues("catSelect");
+
+        if(title.isEmpty()||description.isEmpty()|| titles == null){
             response.sendRedirect("/ads/create");
 
         } else {
@@ -63,7 +66,6 @@ public class CreateAdServlet extends HttpServlet {
 
 
                 System.out.println("checkAd id is " + checkAd.getId());
-                String[] titles = request.getParameterValues("catSelect");
                 List categories = Arrays.asList(titles);
 
                 for (Object c : categories) {

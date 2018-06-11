@@ -26,14 +26,29 @@
         <%--<h5>Posted by: ${sessionScope.showAd.userid}</h5>--%>
         <h6>Description: </h6>
         <p><c:out value ="${showAd.description}"></c:out></p>
+        <% request.getSession();
+            if (session.getAttribute("userId") != session.getAttribute("adUserId")){%>
+            <form action="/ads" method="POST">
+            <input id="viewUser" name="viewUser" type="hidden" value="${adUserId}">
+            <input type="submit" value="View Poster">
+        </form>
+
+        <%
+        }
+        else { %>
+
         <form action="/delete" method="POST">
-            <label for="adId">delete</label>
-            <input id="adId" name="adId" type="submit" class="redButton" value=${showAd.id}>
+            <input id="adId" name="adId" type="hidden" value=${showAd.id}>
+            <input type="submit" value="Delete Ad">
+
         </form>
-        <form action="/ads" method="POST">
-            <label for="viewUser">View Poster</label>
-            <input id="viewUser" name="viewUser" type="submit" value=${userId}>
+
+        <form action="update" method="post">
+            <input id="adInfo" name="adInfo" type="hidden" value="${showAd.id}">
+            <input type="submit" value="Update Ad">
         </form>
+        <%
+            }%>
     </div>
     <%--</c:forEach>--%>
 </div>

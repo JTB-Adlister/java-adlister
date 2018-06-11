@@ -5,6 +5,17 @@
     <li><a href="/">Home</a></li>
     <li><a href="/profile">Profile</a></li>
     <li><a href="/ads">Ads</a></li>
+        <li>
+            <form action="/ad_categories" method="post" id="catForm">
+                <select id="categoryList" name="categoryList" form="catForm">
+                    <c:forEach var="Category" items="${sessionScope.categories}">
+                        <option value=${Category.id}><c:out value="${Category.catTitle}"></c:out></option>
+                    </c:forEach>
+                </select>
+                <input type="submit">
+            </form>
+
+        </li>
     <div class="search">
         <form action="search" method="post">
             <input type="text" name="search" placeholder="Find what you want">
@@ -15,10 +26,13 @@
         if (session.getAttribute("user") != null){%>
 
     <li class="login"><a href="/logout">Logout</a></li>
+    <li><a href="ads/create">Create Ad</a></li>
+
 
     <%
     }
     else { %>
+    <li><a href="register">Register</a></li>
 
     <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="login btn btn-outline-secondary dropdown-toggle">Login <span class="caret"></span></button>
     <ul class="dropdown-menu dropdown-menu-right mt-2">
@@ -37,6 +51,7 @@
             <button class="btn btn-primary btn-block"><a href="/register">Register</a></button>
         </li>
     </ul>
+
 
     <%
         }%>

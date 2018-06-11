@@ -13,10 +13,13 @@
     <h3>${message}</h3>
     <c:forEach var="ad" items="${ads}">
         <div class="ads col-md-5">
-            <div>
-                <h3>${ad.title}</h3>
-                <p>${ad.description}</p>
-            </div>
+
+                <form action="/showinfo" method="post">
+                    <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
+                    <input id="adInfo" name="adInfo" type="submit" value=${ad.id}>
+                </form>
+
+
         </div>
     </c:forEach>
 </div>

@@ -19,4 +19,12 @@ public class DaoFactory {
         }
         return usersDao;
     }
+
+    public static Categories getCategoriesDao() {
+        return new MySQLCatsDao(config);
+    }
+
+    public static AdCategories getAdCategoriesDao(){
+        return new MySQLAdCatsDao(config);
+    }
 }

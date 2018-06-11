@@ -17,20 +17,18 @@ public class SearchServlet extends HttpServlet {
         request.setAttribute("searchTerm", searchTerm);
         String message = "";
 
-        try {
+
             if (DaoFactory.getAdsDao().search(searchTerm).isEmpty()){
                 message = "No results found.";
                 request.setAttribute("message", message);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        try {
+
+
             request.setAttribute("ads", DaoFactory.getAdsDao().search(searchTerm));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+
+
         request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);
     }
 }

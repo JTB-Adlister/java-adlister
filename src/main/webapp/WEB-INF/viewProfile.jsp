@@ -11,14 +11,18 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
 <div class="container">
-    <h1>Welcome, ${sessionScope.username}!</h1>
-    <c:forEach var="ad" items="${userAds}">
+    <h1>Viewing ${viewUserName}'s profile</h1>
+    <c:forEach var="ad" items="${viewUserAds}">
         <div class="col-md-6">
 
             <form action="showinfo" method="post">
                 <label for="adInfo">${ad.title}</label>
                 <input id="adInfo" name="adInfo" type="submit" value=${ad.id}>
-
+                    <%--<p>${ad.description}</p>--%>
+                    <%--<form action="/delete" method="POST">--%>
+                    <%--<label for="adId">delete</label>--%>
+                    <%--<input id="adId" name="adId" type="submit" class="redButton" value=${ad.id}>--%>
+                    <%--</form>--%>
             </form>
         </div>
 

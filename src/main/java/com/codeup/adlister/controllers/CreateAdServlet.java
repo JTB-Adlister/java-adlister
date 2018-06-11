@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,6 +40,10 @@ public class CreateAdServlet extends HttpServlet {
         String[] titles = request.getParameterValues("catSelect");
 
         if(title.isEmpty()||description.isEmpty()|| titles == null){
+            request.getSession().setAttribute("errorMessage", null);
+            List<String> errors = new ArrayList<>();
+            errors.add("Please fill out all details");
+            request.getSession().setAttribute("errorMessage", errors);
             response.sendRedirect("/ads/create");
 
         } else {

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,23 +25,26 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
-        Boolean isError;
+
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String message;
-        int numberOfRounds = 12;
-        password = BCrypt.hashpw(password, BCrypt.gensalt(numberOfRounds));
+
+
 
          // make sure the user did not use a username that is already in use.
         if (DaoFactory.getUsersDao().userExists(username)){
-            isError = true;
-            request.getSession().setAttribute("isError", isError);
-            message = "That username already exists. Try again.";
-            request.getSession().setAttribute("message", message);
+            request.getSession().setAttribute("errorMessage", null);
+            List<String> errors = new ArrayList<>();
+            errors.add("That username already exists. Please try again");
+            request.getSession().setAttribute("errorMessage", errors);
             response.sendRedirect("/register");
+
         } else {
          // create and save a new user
+            request.getSession().setAttribute("errorMessage", null);
+            int numberOfRounds = 12;
+            password = BCrypt.hashpw(password, BCrypt.gensalt(numberOfRounds));
             DaoFactory.getUsersDao().insert(new User(0, username, email, password));
             User user = DaoFactory.getUsersDao().findByUsername(username);
             long id = user.getId();

@@ -13,4 +13,8 @@ public interface Users {
 
     User findByUserId(String id);
 
+    List<User> listAll();
+    void deleteQuery(String userId);
+
+
 }

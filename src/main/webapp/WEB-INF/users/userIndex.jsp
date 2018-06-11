@@ -20,17 +20,19 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
 <div class="container">
-    <h1>Here Are all the ads!</h1>
 
 
-    <c:forEach var="ad" items="${ads}">
+    <c:forEach var="user" items="${users}">
 
         <div class="col-md-6">
 
-            <form action="/showinfo" method="post">
-                <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
-                <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
-                <input type="Submit" value="View Ad">
+            <form action="/viewuser" method="post">
+                <label for="userInfo">
+                    Username: <c:out value="${user.username}"></c:out>
+                Role: <c:out value="${user.role}"></c:out>
+                </label>
+                <input id="userInfo" name="userInfo" type="hidden" value="${user.username}">
+                <input type="Submit" value="View User Profile">
             </form>
         </div>
 

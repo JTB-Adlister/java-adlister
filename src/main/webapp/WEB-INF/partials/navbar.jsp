@@ -55,6 +55,11 @@
 
     <%
         }%>
+    <c:choose>
+        <c:when test="${sessionScope.role.equals('admin')}">
+            <a href="/viewUsers">View All Users</a>
+        </c:when>
+    </c:choose>
 
 </nav>
 <div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -75,15 +80,4 @@
     </div>
 </div>
 
-<div>
-    <c:choose>
-        <c:when test="${sessionScope.errorMessage != null}">
-            <c:forEach var="error" items="${sessionScope.errorMessage}">
-                <p>${error}</p>
-            </c:forEach>
-        </c:when>
-        <c:otherwise>
 
-        </c:otherwise>
-    </c:choose>
-</div>

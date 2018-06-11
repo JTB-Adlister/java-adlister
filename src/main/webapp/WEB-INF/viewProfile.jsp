@@ -24,9 +24,20 @@
                     <%--<input id="adId" name="adId" type="submit" class="redButton" value=${ad.id}>--%>
                     <%--</form>--%>
             </form>
+
+
+
         </div>
 
     </c:forEach>
+    <c:choose>
+        <c:when test="${sessionScope.role.equals('admin')}">
+            <form method="post" action="/deleteuser">
+                <input name="deleteuser" id="deleteuser" type="hidden" value="${viewUserId}">
+                <input type="submit" value="Delete User">
+            </form>
+        </c:when>
+    </c:choose>
 </div>
 <%@ include file="/WEB-INF/partials/scripts.jsp" %>
 </body>

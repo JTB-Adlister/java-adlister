@@ -45,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
             request.getSession().setAttribute("errorMessage", null);
             int numberOfRounds = 12;
             password = BCrypt.hashpw(password, BCrypt.gensalt(numberOfRounds));
-            DaoFactory.getUsersDao().insert(new User(0, username, email, password));
+            DaoFactory.getUsersDao().insert(new User(0, username, email, password, "user"));
             User user = DaoFactory.getUsersDao().findByUsername(username);
             long id = user.getId();
             request.getSession().setAttribute("user", user);

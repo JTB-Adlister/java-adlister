@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS categories;
 # Ensure the name is UNIQUE for no duplicates.
 CREATE TABLE users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    userrole VARCHAR(240) NOT NULL DEFAULT 'user',
     username VARCHAR(240) NOT NULL UNIQUE,
     email VARCHAR(240) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -41,3 +42,18 @@ CREATE TABLE adCategory (
 );
 
 select * from users;
+
+select * from adCategory;
+
+DELETE FROM ads;
+
+DELETE from users;
+
+SELECT * from ads;
+
+INSERT INTO categories (catTitle) VALUES ("jobs");
+
+insert into users (userrole, username, email, password) VALUES ("admin", "Thomas", "thomas@gmail.com", "codeup");
+
+UPDATE users SET userrole = 'admin' WHERE username = 'Thomas';
+

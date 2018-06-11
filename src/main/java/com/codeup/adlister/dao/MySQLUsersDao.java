@@ -25,6 +25,26 @@ public class MySQLUsersDao implements Users {
     }
 
     @Override
+    public List<User> listAll(){
+
+        try{
+            String sql = "SELECT * FROM users";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+            return createUserList(rs);
+        } catch (SQLException e){
+            throw new RuntimeException("Error listing all users", e);
+        }
+    }
+    private List<User> createUserList(ResultSet rs) throws SQLException {
+        List<User> users = new ArrayList<>();
+        while (rs.next()) {
+            users.add(extractUser(rs));
+        }
+        return users;
+    }
+
+    @Override
     public User findByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
         try {
@@ -89,6 +109,18 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+    @Override
+    public void deleteQuery(String userId){
+        try {
+            String sql = "DELETE FROM users WHERE id = ? Limit 1";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, userId);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting user", e);
+        }
+    }
+
     private boolean scanDb(ResultSet rs) throws SQLException {
         return rs.next();
     }
@@ -101,8 +133,8 @@ public class MySQLUsersDao implements Users {
                 rs.getInt("id"),
                 rs.getString("username"),
                 rs.getString("email"),
-                rs.getString("password")
+                rs.getString("password"),
+                rs.getString("userrole")
         );
     }
-
 }

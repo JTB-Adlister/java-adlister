@@ -11,6 +11,6 @@
     <div class="container">
         <h1>Welcome, ${sessionScope.user.username}!</h1>
     </div>
-
+    <%@ include file="/WEB-INF/partials/scripts.jsp" %>
 </body>
 </html>

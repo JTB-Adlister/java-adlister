@@ -26,5 +26,6 @@
     </form>
 
 </div>
+<%@ include file="/WEB-INF/partials/scripts.jsp" %>
 </body>
 </html>

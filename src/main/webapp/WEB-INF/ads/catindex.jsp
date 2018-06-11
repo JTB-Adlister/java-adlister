@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% session.setAttribute("currentpage", "ad_categories"); %>
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
@@ -32,7 +33,7 @@
 
     </c:forEach>
 </div>
-
+<%@ include file="/WEB-INF/partials/scripts.jsp" %>
 </body>
 
 </html>

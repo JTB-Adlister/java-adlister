@@ -39,3 +39,5 @@ CREATE TABLE adCategory (
     FOREIGN KEY (catID) REFERENCES categories(id)
         ON DELETE CASCADE
 );
+
+select * from users;

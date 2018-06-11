@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "controllers.LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
@@ -27,28 +29,42 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         String pagename = (String) request.getSession().getAttribute("currentpage");
 
-        User user = DaoFactory.getUsersDao().findByUsername(username);
-
-        int numberOfRounds = 12;
-        String hash = BCrypt.hashpw(password, BCrypt.gensalt(numberOfRounds));
-
-        boolean validAttempt = BCrypt.checkpw(password,hash);
+        if (DaoFactory.getUsersDao().userExists(username)) {
+            User user = DaoFactory.getUsersDao().findByUsername(username);
 
 
-        if (validAttempt) {
-            long id = user.getId();
-            request.getSession().setAttribute("user", user);
-            request.getSession().setAttribute("userId", id);
-            request.getSession().setAttribute("username", user.getUsername());
+            String hash = user.getPassword();
 
-            if (pagename == null){
-                pagename = "index";
+            boolean passwordsDoMatch = BCrypt.checkpw(password, hash);
+
+
+            System.out.println();
+            if (passwordsDoMatch) {
+                long id = user.getId();
+                request.getSession().setAttribute("errorMessage", null);
+                request.getSession().setAttribute("user", user);
+                request.getSession().setAttribute("userId", id);
+                request.getSession().setAttribute("username", user.getUsername());
+
+                if (pagename == null) {
+                    pagename = "index";
+                }
+
+                response.sendRedirect(pagename);
+
+            } else {
+                request.getSession().setAttribute("errorMessage", null);
+                List<String> errors = new ArrayList<>();
+                errors.add("Incorrect Password");
+                request.getSession().setAttribute("errorMessage", errors);
+                response.sendRedirect("/login");
             }
-
-            response.sendRedirect(pagename);
-
         } else {
-            response.sendRedirect("/login");
+            request.getSession().setAttribute("errorMessage", null);
+            List<String> errors = new ArrayList<>();
+            errors.add("User does not exist");
+            request.getSession().setAttribute("errorMessage", errors);
+            response.sendRedirect("/register");
         }
     }
 }

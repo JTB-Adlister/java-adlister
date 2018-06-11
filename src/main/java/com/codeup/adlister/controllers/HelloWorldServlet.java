@@ -16,5 +16,6 @@ public class HelloWorldServlet extends HttpServlet {
         response.getWriter().println("<h1>Hello, World!</h1>");
         List<Category> categories = DaoFactory.getCategoriesDao().listAll();
         request.getSession().setAttribute("categories", categories);
+        response.sendRedirect("/index.jsp");
     }
 }

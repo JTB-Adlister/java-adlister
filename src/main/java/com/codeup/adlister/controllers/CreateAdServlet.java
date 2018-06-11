@@ -59,23 +59,24 @@ public class CreateAdServlet extends HttpServlet {
 
             Ad checkAd = DaoFactory.getAdsDao().findByRandId(random);
 
+            if(random == checkAd.getRandId() && userid == checkAd.getUserId()) {
 
 
-            System.out.println("checkAd id is " + checkAd.getId());
-            String[] titles = request.getParameterValues("catSelect");
-            List categories =  Arrays.asList(titles);
+                System.out.println("checkAd id is " + checkAd.getId());
+                String[] titles = request.getParameterValues("catSelect");
+                List categories = Arrays.asList(titles);
 
-            for(Object c: categories){
-                int i = Integer.valueOf((String) c);
+                for (Object c : categories) {
+                    int i = Integer.valueOf((String) c);
 
-                long id = (long) i;
-                AdCategory adCat = new AdCategory(checkAd.getId(), id);
-                DaoFactory.getAdCategoriesDao().insert(adCat);
+                    long id = (long) i;
+                    AdCategory adCat = new AdCategory(checkAd.getId(), id);
+                    DaoFactory.getAdCategoriesDao().insert(adCat);
+                }
+
+
+                response.sendRedirect("/ads");
             }
-
-
-
-            response.sendRedirect("/ads");
         }
     }
 }

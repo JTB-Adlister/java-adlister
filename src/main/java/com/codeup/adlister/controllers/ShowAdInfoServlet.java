@@ -27,7 +27,7 @@ public class ShowAdInfoServlet extends HttpServlet {
         long userId = showAd.getUserId();
         System.out.println("user id " + userId);
         request.setAttribute("showAd", showAd);
-        request.setAttribute("userId", userId);
+        request.getSession().setAttribute("adUserId", userId);
         request.getRequestDispatcher("/WEB-INF/ads/adInfo.jsp").forward(request, response);
 
     }

@@ -41,3 +41,12 @@ CREATE TABLE adCategory (
 );
 
 select * from users;
+
+INSERT INTO categories (catTitle)
+Values ('Electronics'),
+    ('Furniture'),
+    ('Games'),
+    ('Auto'),
+    ('Tools'),
+    ('Pets');
+

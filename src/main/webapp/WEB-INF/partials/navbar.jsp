@@ -6,18 +6,7 @@
     <li><a href="/profile">Profile</a></li>
     <li><a href="/ads">Ads</a></li>
     <% request.getSession();
-        if (session.getAttribute("currentpage") != "index"){%>
-
-    <li>
-        <form action="/ad_categories" method="post" id="catForm">
-            <select id="categoryList" name="categoryList" form="catForm">
-                <c:forEach var="Category" items="${sessionScope.categories}">
-                    <option value=${Category.id}><c:out value="${Category.catTitle}"></c:out></option>
-                </c:forEach>
-            </select>
-            <input type="submit">
-        </form>
-    </li>
+        if (session.getAttribute("pagename") != null){%>
 
 
     <%

@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% session.setAttribute("currentpage", "index"); %>
-
+<% request.setAttribute("pagename", "home"); %>
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
@@ -23,14 +22,6 @@
                             </button>
                         </c:forEach>
                     </form>
-                    <%--<form action="/ad_categories" method="post" id="catForm">--%>
-                        <%--<select id="categoryList" name="categoryList" form="catForm">--%>
-                            <%--<c:forEach var="Category" items="${sessionScope.categories}">--%>
-                                <%--<option value=${Category.id}><c:out value="${Category.catTitle}"></c:out></option>--%>
-                            <%--</c:forEach>--%>
-                        <%--</select>--%>
-                        <%--<input type="submit">--%>
-                    <%--</form>--%>
                 </ul>
             </div>
         </div>

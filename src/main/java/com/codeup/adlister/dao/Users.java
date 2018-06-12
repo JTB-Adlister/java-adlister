@@ -5,6 +5,7 @@ import com.codeup.adlister.models.User;
 import java.util.List;
 
 public interface Users {
+
 //    User findByUsername(String username);
 
     Long insert(User user);
@@ -13,7 +14,7 @@ public interface Users {
 
 //    User findByUserId(String id);
 
-    List<User> listAll();
+//    List<User> listAll();
 
     void updateUser(User user, String username, String email, String passNew);
 }

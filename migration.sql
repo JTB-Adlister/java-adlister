@@ -71,5 +71,6 @@ UPDATE users SET userrole = 'admin' WHERE username = 'Thomas';
 
 insert into users (userrole, username, email, password) VALUES ('admin', 'shake', 'shake@email.com', 'test');
 
+SELECT * from ads where userid = 1;
 
 

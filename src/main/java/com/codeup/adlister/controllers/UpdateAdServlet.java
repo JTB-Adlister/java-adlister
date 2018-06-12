@@ -19,6 +19,7 @@ import java.util.List;
 
 @WebServlet(name = "controllers.UpDateAdServlet", urlPatterns = "/update")
 public class UpdateAdServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");

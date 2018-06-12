@@ -20,39 +20,42 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" /></body>
 
 <div class="container">
-
     <%--<c:forEach var="showAd" items="${showAd}">--%>
-    <div class="col-md-6">
-        <h1><c:out value ="${showAd.title}"></c:out></h1>
-        <%--<h5>Posted by: ${sessionScope.showAd.userid}</h5>--%>
-        <h6>Description: </h6>
-        <p><c:out value ="${showAd.description}"></c:out></p>
-        <% request.getSession();
-            if (session.getAttribute("userId") != session.getAttribute("adUserId")){%>
-            <form action="/ads" method="POST">
-            <input id="viewUser" name="viewUser" type="hidden" value="${adUserId}">
-            <input type="submit" value="View Poster">
-        </form>
+            <h1><c:out value ="${showAd.title}"></c:out></h1>
+        <div class="container adContainer col-md-12">
+            <%--<h5>Posted by: ${sessionScope.showAd.userid}</h5>--%>
+            <div class="ads col-md-5">
+                <h6>Description: </h6>
+                <p><c:out value ="${showAd.description}"></c:out></p>
+                <% request.getSession();
+                    if (session.getAttribute("userId") != session.getAttribute("adUserId")){%>
+                    <form action="/ads" method="POST">
+                    <input id="viewUser" name="viewUser" type="hidden" value="${adUserId}">
+                    <input type="submit" value="View Poster">
+                    </form>
+            </div>
 
-        <%
-        }
-        else { %>
+            <%
+            }
+            else { %>
 
-        <form action="/delete" method="POST">
-            <input id="adId" name="adId" type="hidden" value=${showAd.id}>
-            <input type="submit" value="Delete Ad">
+            <form action="/delete" method="POST">
+                <input id="adId" name="adId" type="hidden" value=${showAd.id}>
+                <input type="submit" value="Delete Ad">
 
-        </form>
+            </form>
 
-        <form action="update" method="post">
-            <input id="adInfo" name="adInfo" type="hidden" value="${showAd.id}">
-            <input type="submit" value="Update Ad">
-        </form>
-        <%
+            <form action="update" method="post">
+                <input id="adInfo" name="adInfo" type="hidden" value="${showAd.id}">
+                <input type="submit" value="Update Ad">
+            </form>
+            <%
             }%>
-    </div>
+
+        </div>
     <%--</c:forEach>--%>
 </div>
+
 <%@ include file="/WEB-INF/partials/scripts.jsp" %>
 </body>
 

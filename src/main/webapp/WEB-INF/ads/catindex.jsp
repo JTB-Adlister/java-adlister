@@ -22,17 +22,29 @@
 <div class="container">
     <h1>${catTitle}</h1>
 
-    <c:forEach var="ad" items="${ads}">
-        <div class="col-md-6">
+    <div class="create">
+        <form action="/ad_categories" method="post" id="catForm">
+            <select id="categoryList" name="categoryList" form="catForm">
+                <c:forEach var="Category" items="${sessionScope.categories}">
+                    <option value=${Category.id}><c:out value="${Category.catTitle}"></c:out></option>
+                </c:forEach>
+            </select>
+            <input type="submit">
+        </form>
+    </div>
 
-            <form action="/showinfo" method="post">
-                <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
-                <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
-                <input type="submit" value="View Ad">
-            </form>
-        </div>
+    <div class="container adContainer col-md-12">
+        <c:forEach var="ad" items="${ads}">
+            <div class="ads col-md-5">
+                <form action="/showinfo" method="post">
+                    <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
+                    <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
+                    <input type="submit" value="View Ad">
+                </form>
+            </div>
+        </c:forEach>
+    </div>
 
-    </c:forEach>
 </div>
 <%@ include file="/WEB-INF/partials/scripts.jsp" %>
 </body>

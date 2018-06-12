@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
                 request.getSession().setAttribute("username", user.getUsername());
 
                 if (pagename == null) {
-                    pagename = "index";
+                    pagename = "profile";
                 }
 
                 response.sendRedirect(pagename);

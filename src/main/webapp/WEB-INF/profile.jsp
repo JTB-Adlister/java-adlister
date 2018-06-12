@@ -12,6 +12,10 @@
 
 <div class="container">
     <h1>Welcome, ${sessionScope.username}!</h1>
+    <form method="get" action="/updateuser">
+        <input name="updateuser" id="updateuser" type="hidden" value="${viewUserId}">
+        <input type="submit" value="Update your Info">
+    </form>
     <c:forEach var="ad" items="${userAds}">
         <div class="col-md-6">
 

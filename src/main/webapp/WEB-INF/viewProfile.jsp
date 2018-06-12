@@ -13,9 +13,9 @@
 
 <div class="container">
     <h1>Viewing ${viewUserName}'s profile</h1>
+
     <c:forEach var="ad" items="${viewUserAds}">
         <div class="col-md-6">
-
             <form action="showinfo" method="post">
                 <label for="adInfo">${ad.title}</label>
                 <input id="adInfo" name="adInfo" type="submit" value=${ad.id}>

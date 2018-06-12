@@ -14,23 +14,16 @@
 <div class="container">
     <h1>Viewing ${viewUserName}'s profile</h1>
 
-    <c:forEach var="ad" items="${viewUserAds}">
-        <div class="col-md-6">
-            <form action="showinfo" method="post">
-                <label for="adInfo">${ad.title}</label>
-                <input id="adInfo" name="adInfo" type="submit" value=${ad.id}>
-                    <%--<p>${ad.description}</p>--%>
-                    <%--<form action="/delete" method="POST">--%>
-                    <%--<label for="adId">delete</label>--%>
-                    <%--<input id="adId" name="adId" type="submit" class="redButton" value=${ad.id}>--%>
-                    <%--</form>--%>
-            </form>
-
-
-
-        </div>
-
-    </c:forEach>
+    <div class="container adContainer col-md-12">
+        <c:forEach var="ad" items="${viewUserAds}">
+            <div class="ads col-md-5">
+                <form action="showinfo" method="post">
+                    <label for="adInfo">${ad.title}</label>
+                    <input id="adInfo" name="adInfo" type="submit" value=${ad.id}>
+                </form>
+            </div>
+        </c:forEach>
+    </div>
     <c:choose>
         <c:when test="${sessionScope.role.equals('admin')}">
             <form method="post" action="/deleteuser">

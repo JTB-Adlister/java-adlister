@@ -24,9 +24,11 @@ public class ViewOtherProfileServlet extends HttpServlet {
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("userInfo");
-        User user = DaoFactory.getUsersDao().findByUsername(name);
-        int userid = (int) user.getId();
-        List<Ad> userAds = DaoFactory.getAdsDao().listByUser(userid);
+        User user = (User) DaoFactory.getSqlDao().findBySearch("users", "username", name);
+
+
+        List<Object> userAds = DaoFactory.getSqlDao().listBySearch("ads", "userid",String.valueOf(user.getId()));
+
         System.out.println(request.getSession().getAttribute("role").toString());
         request.setAttribute("viewUserAds", userAds);
         request.setAttribute("viewUserName", user.getUsername());

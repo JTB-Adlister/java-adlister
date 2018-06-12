@@ -32,7 +32,10 @@ public class DeleteAdServlet extends HttpServlet {
             response.sendRedirect("/login");
         } else {
             String username = (String) request.getSession().getAttribute("username");
-            User user = DaoFactory.getUsersDao().findByUsername(username);
+//            User user = DaoFactory.getUsersDao().findByUsername(username);
+
+            User user = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
+
             String adid = request.getParameter("adId");
             int adId = Integer.parseInt(adid);
             Ad adCheck = DaoFactory.getAdsDao().findById(adId);

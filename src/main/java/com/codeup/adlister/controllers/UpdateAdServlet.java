@@ -26,8 +26,9 @@ public class UpdateAdServlet extends HttpServlet {
 
         }
         long userId = (long) request.getSession().getAttribute("userId");
-        int adId = Integer.parseInt(request.getParameter("adInfo"));
-        Ad newAd = DaoFactory.getAdsDao().findById(adId);
+//        int adId = Integer.parseInt(request.getParameter("adInfo"));
+//        Ad newAd = DaoFactory.getAdsDao().findById(adId);
+        Ad newAd = (Ad) DaoFactory.getSqlDao().findBySearch("ads", "id", request.getParameter("adInfo"));
         if(userId == newAd.getUserId()) {
             String title = newAd.getTitle();
             String description = newAd.getDescription();

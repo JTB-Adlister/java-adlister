@@ -18,7 +18,7 @@ public class ViewAllUsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             if (request.getSession().getAttribute("role").equals("admin")) {
-                List<User> users = DaoFactory.getUsersDao().listAll();
+                List<Object> users = DaoFactory.getSqlDao().listAll("users", "user");
                 request.setAttribute("users", users);
                 request.getRequestDispatcher("/WEB-INF/users/userIndex.jsp").forward(request, response);
             } else {

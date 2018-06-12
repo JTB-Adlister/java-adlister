@@ -30,7 +30,9 @@ public class LoginServlet extends HttpServlet {
         String pagename = (String) request.getSession().getAttribute("currentpage");
 
         if (DaoFactory.getUsersDao().userExists(username)) {
-            User user = DaoFactory.getUsersDao().findByUsername(username);
+            User user = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
+
+//            User user = DaoFactory.getUsersDao().findByUsername(username);
 
 
             String hash = user.getPassword();

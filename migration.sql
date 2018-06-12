@@ -53,7 +53,7 @@ SELECT * from ads;
 
 INSERT INTO categories (catTitle) VALUES ("jobs");
 
-insert into users (userrole, username, email, password) VALUES ("admin", "Thomas", "thomas@gmail.com", "codeup");
+insert into users (userrole, username, email, password) VALUES ("user", "arianag", "grande@email.com", "codeup");
 
 UPDATE users SET userrole = 'admin' WHERE username = 'Thomas';
 

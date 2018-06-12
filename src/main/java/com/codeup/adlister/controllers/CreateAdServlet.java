@@ -24,7 +24,9 @@ public class CreateAdServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
-        List<Category> categories = DaoFactory.getCategoriesDao().listAll();
+        //List<Category> categories = DaoFactory.getCategoriesDao().listAll();
+
+        List<Object> categories = DaoFactory.getSqlDao().listAll("categories", "category");
         request.getSession().setAttribute("categories", categories);
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
     }
@@ -51,6 +53,7 @@ public class CreateAdServlet extends HttpServlet {
             long userid = (long) request.getSession().getAttribute("userId");
 
 
+            //random long is generated in order to select ad and assign it category values
             long random = (long) (Math.random() * (10000 - 1)) + 1;
 
 
@@ -62,15 +65,17 @@ public class CreateAdServlet extends HttpServlet {
             );
 
 
-            System.out.println("Random number is " + random);
             DaoFactory.getAdsDao().insert(ad);
 
+
+//            using getAdsDao.findByRandId instead of new method because long random can not be effectively cast to string
             Ad checkAd = DaoFactory.getAdsDao().findByRandId(random);
+
+
 
             if(random == checkAd.getRandId() && userid == checkAd.getUserId()) {
 
-
-                System.out.println("checkAd id is " + checkAd.getId());
+                //creates a list of categories and assigns them to the ad
                 List categories = Arrays.asList(titles);
 
                 for (Object c : categories) {

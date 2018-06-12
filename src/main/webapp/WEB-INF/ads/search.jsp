@@ -3,8 +3,9 @@
 <% session.setAttribute("currentpage", "search"); %>
 <html>
 <head>
-    <title>Gregslist</title>
-    <%@ include file="/WEB-INF/partials/stylelinks.jsp" %>
+    <jsp:include page="/WEB-INF/partials/head.jsp">
+        <jsp:param name="title" value="Search Results" />
+    </jsp:include>
 </head>
 <body>
 <%@ include file="/WEB-INF/partials/navbar.jsp" %>

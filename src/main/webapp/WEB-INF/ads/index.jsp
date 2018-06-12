@@ -22,16 +22,25 @@
 <div class="container">
     <h1>Here Are all the ads!</h1>
 
+    <div class="create">
+        <form action="/ad_categories" method="post" id="catForm">
+            <select id="categoryList" name="categoryList" form="catForm">
+                <c:forEach var="Category" items="${sessionScope.categories}">
+                    <option value=${Category.id}><c:out value="${Category.catTitle}"></c:out></option>
+                </c:forEach>
+            </select>
+            <input type="submit">
+        </form>
+    </div>
+
     <div class="container adContainer col-md-12">
         <c:forEach var="ad" items="${ads}">
             <div class="ads col-md-5">
-                <div class="adCard">
-                    <form action="/showinfo" method="post">
-                        <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
-                        <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
-                        <input type="Submit" value="View Ad">
-                    </form>
-                </div>
+                <form action="/showinfo" method="post">
+                    <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
+                    <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
+                    <input type="Submit" value="View Ad">
+                </form>
             </div>
         </c:forEach>
     </div>

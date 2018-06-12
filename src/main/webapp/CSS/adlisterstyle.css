@@ -51,7 +51,7 @@ h1, h3 {
     float: left;
 }
 
-.adContainer {
+.adContainer, .categories {
     clear: both;
     margin: auto;
     width: 80%;

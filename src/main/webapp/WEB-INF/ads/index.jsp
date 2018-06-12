@@ -22,19 +22,20 @@
 <div class="container">
     <h1>Here Are all the ads!</h1>
 
+    <div class="container adContainer col-md-12">
+        <c:forEach var="ad" items="${ads}">
+            <div class="ads col-md-5">
+                <div class="adCard">
+                    <form action="/showinfo" method="post">
+                        <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
+                        <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
+                        <input type="Submit" value="View Ad">
+                    </form>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 
-    <c:forEach var="ad" items="${ads}">
-
-        <div class="col-md-6">
-
-            <form action="/showinfo" method="post">
-                <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
-                <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
-                <input type="Submit" value="View Ad">
-            </form>
-        </div>
-
-    </c:forEach>
 </div>
 <%@ include file="/WEB-INF/partials/scripts.jsp" %>
 </body>

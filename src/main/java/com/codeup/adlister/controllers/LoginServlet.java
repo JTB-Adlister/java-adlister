@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("User Role is " + user.getRole());
 
                 if (pagename == null) {
-                    pagename = "index";
+                    pagename = "profile";
                 }
 
                 response.sendRedirect(pagename);

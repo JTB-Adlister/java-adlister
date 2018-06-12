@@ -14,13 +14,22 @@
 
 
         <h1>Welcome, ${sessionScope.username}!</h1>
+        <div class="create">
+            <form action="/updateuser" method="post">
+                <input type="submit" value="Update your profile">
+            </form>
+        </div>
+
+        <div class="container adContainer col-md-12">
         <c:forEach var="ad" items="${userAds}">
+            <div class="ads col-md-5">
                 <form action="showinfo" method="post">
                     <label for="adInfo">${ad.title}</label>
                     <input id="adInfo" name="adInfo" type="submit" value=${ad.id}>
                 </form>
+            </div>
         </c:forEach>
-
+        </div>
 
 <%@ include file="/WEB-INF/partials/scripts.jsp" %>
 </body>

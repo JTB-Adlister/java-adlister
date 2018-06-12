@@ -18,7 +18,7 @@ public class DeleteUserServlet extends HttpServlet {
             response.sendRedirect("/login");
         } else {
             String userId = request.getParameter("deleteuser");
-            DaoFactory.getUsersDao().deleteQuery(userId);
+            DaoFactory.getSqlDao().deleteQuery("users", "id", userId);
             response.sendRedirect("/viewUsers");
         }
     }

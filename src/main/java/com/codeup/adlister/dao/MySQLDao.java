@@ -86,6 +86,19 @@ public class MySQLDao implements SQL {
     }
 
 
+    @Override
+    public void deleteQuery(String table, String column, String data){
+        String sql = "DELETE FROM " + table + " WHERE " + column + " = ? Limit 1";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, data);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting " + column + " from " + table, e);
+        }
+    }
+
+
 
 
     private List<Object> createObjectsFromResults(ResultSet rs, String type) throws SQLException {

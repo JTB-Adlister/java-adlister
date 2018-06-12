@@ -14,8 +14,9 @@ import java.util.List;
 @WebServlet(name = "controllers.HelloWorldServlet", urlPatterns = "")
 public class HelloWorldServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.setAttribute("ads", DaoFactory.getAdsDao().all());
-        List<Category> categories = DaoFactory.getCategoriesDao().listAll();
+        request.setAttribute("ads", DaoFactory.getSqlDao().listAll("ads", "ad"));
+
+        List<Object> categories = DaoFactory.getSqlDao().listAll("categories", "category");
         request.getSession().setAttribute("categories", categories);
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }

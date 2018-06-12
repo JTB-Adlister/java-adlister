@@ -25,7 +25,8 @@ public class AdsIndexServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("viewUser");
-        User user = DaoFactory.getUsersDao().findByUserId(userId);
+//        User user = DaoFactory.getUsersDao().findByUserId(userId);
+        User user = (User) DaoFactory.getSqlDao().findBySearch("ads", "userid", userId);
         long id = user.getId();
         request.setAttribute("viewUser", user);
         request.setAttribute("viewUserId", id);

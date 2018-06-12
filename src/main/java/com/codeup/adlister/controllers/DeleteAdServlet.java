@@ -37,12 +37,10 @@ public class DeleteAdServlet extends HttpServlet {
             User user = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
 
             String adid = request.getParameter("adId");
-            int adId = Integer.parseInt(adid);
-            Ad adCheck = DaoFactory.getAdsDao().findById(adId);
-            System.out.println(adId);
-            if (adCheck.getUserId() == user.getId()) {
+            Ad adCheck = (Ad) DaoFactory.getSqlDao().findBySearch("ads", "id", adid);
 
-                DaoFactory.getAdsDao().deleteQuery(adid);
+            if (adCheck.getUserId() == user.getId()) {
+                DaoFactory.getSqlDao().deleteQuery("ads", "id", adid);
             }
 
             response.sendRedirect("/ads");

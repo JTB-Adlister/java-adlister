@@ -16,20 +16,23 @@ import java.util.List;
 @WebServlet(name = "controllers.AdsIndexServlet", urlPatterns = "/ads")
 public class AdsIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("ads", DaoFactory.getAdsDao().all());
-        List<Category> categories = DaoFactory.getCategoriesDao().listAll();
+        request.setAttribute("ads", DaoFactory.getSqlDao().listAll("ads", "ad"));
+        //List<Category> categories = DaoFactory.getCategoriesDao().listAll();
+        List<Object> categories = DaoFactory.getSqlDao().listAll("categories", "category");
         request.getSession().setAttribute("categories", categories);
         request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("viewUser");
-        User user = DaoFactory.getUsersDao().findByUserId(userId);
+//        User user = DaoFactory.getUsersDao().findByUserId(userId);
+        User user = (User) DaoFactory.getSqlDao().findBySearch("users", "id", userId);
         long id = user.getId();
         request.setAttribute("viewUser", user);
         request.setAttribute("viewUserId", id);
         int userid = (int) id;
-        List<Ad> userAds = DaoFactory.getAdsDao().listByUser(userid);
+//        List<Ad> userAds = DaoFactory.getAdsDao().listByUser(userid);
+        List<Object> userAds = DaoFactory.getSqlDao().listBySearch("ads", "userid", userId);
         request.setAttribute("viewUserAds", userAds);
         request.setAttribute("viewUserName", user.getUsername());
         request.getRequestDispatcher("/WEB-INF/viewProfile.jsp").forward(request, response);

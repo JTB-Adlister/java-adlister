@@ -1,6 +1,6 @@
 package com.codeup.adlister.controllers;
 
-import com.codeup.adlister.dao.Categories;
+//import com.codeup.adlister.dao.Categories;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.Category;
@@ -20,28 +20,31 @@ public class CatIndexServlet extends HttpServlet {
         if(request.getSession().getAttribute("catType") == null) {
             request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
         }
-        String catId = request.getParameter("categoryList");
-        String catList = request.getParameter("catForm");
-        System.out.println(catList);
-        System.out.println(catId);
-        int id = Integer.parseInt(catId);
 
-        List<Category> categories = DaoFactory.getCategoriesDao().listById(id);
+        //request categoryList from navbar category selection that provides category id value
+        String catId = request.getParameter("categoryList");
+
+        //List<Category> categories = DaoFactory.getCategoriesDao().listById(id);
+        //populates an object list of categories SELECT * FROM categories WHERE id = catId
+        List<Object> categories = DaoFactory.getSqlDao().listBySearch("categories", "id", catId);
         request.getSession().setAttribute("catType", categories);
+
         request.getRequestDispatcher("/WEB-INF/ads/catindex.jsp");
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String catId = request.getParameter("categoryList");
-
-        System.out.println(catId);
+        //catId is parsed to int id in order to list ads by category id
         int id = Integer.parseInt(catId);
-        List<Category> categories = DaoFactory.getCategoriesDao().listById(id);
-        String catTitle = categories.get(0).getCatTitle();
 
-        request.setAttribute("catTitle", catTitle);
+        //List<Category> categories = DaoFactory.getCategoriesDao().listById(id);
+        List<Object> categoryList = DaoFactory.getSqlDao().listBySearch("categories", "id", catId);
+        Category category = (Category) categoryList.get(0);
+
+        request.setAttribute("catTitle", category.getCatTitle());
         List<Ad> ads = DaoFactory.getAdsDao().listByCat(id);
-        System.out.println(ads.size());
+
         request.getSession().setAttribute("ads", ads);
         request.getRequestDispatcher("/WEB-INF/ads/catindex.jsp").forward(request,response);
     }
 }
+

@@ -1,7 +1,7 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.AdCategories;
-import com.codeup.adlister.dao.Categories;
+//import com.codeup.adlister.dao.Categories;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.AdCategory;
@@ -19,6 +19,7 @@ import java.util.List;
 
 @WebServlet(name = "controllers.UpDateAdServlet", urlPatterns = "/update")
 public class UpdateAdServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
@@ -26,14 +27,16 @@ public class UpdateAdServlet extends HttpServlet {
 
         }
         long userId = (long) request.getSession().getAttribute("userId");
-        int adId = Integer.parseInt(request.getParameter("adInfo"));
-        Ad newAd = DaoFactory.getAdsDao().findById(adId);
+//        int adId = Integer.parseInt(request.getParameter("adInfo"));
+//        Ad newAd = DaoFactory.getAdsDao().findById(adId);
+        Ad newAd = (Ad) DaoFactory.getSqlDao().findBySearch("ads", "id", request.getParameter("adInfo"));
         if(userId == newAd.getUserId()) {
             String title = newAd.getTitle();
             String description = newAd.getDescription();
             request.setAttribute("title", title);
             request.setAttribute("description", description);
-            DaoFactory.getAdsDao().deleteQuery(request.getParameter("adInfo"));
+            //DaoFactory.getAdsDao().deleteQuery(request.getParameter("adInfo"));
+            DaoFactory.getSqlDao().deleteQuery("ads", "id", request.getParameter("adInfo"));
             request.getRequestDispatcher("/WEB-INF/ads/update.jsp").forward(request, response);
         } else {
             response.sendRedirect("/ads");

@@ -32,14 +32,15 @@ public class DeleteAdServlet extends HttpServlet {
             response.sendRedirect("/login");
         } else {
             String username = (String) request.getSession().getAttribute("username");
-            User user = DaoFactory.getUsersDao().findByUsername(username);
-            String adid = request.getParameter("adId");
-            int adId = Integer.parseInt(adid);
-            Ad adCheck = DaoFactory.getAdsDao().findById(adId);
-            System.out.println(adId);
-            if (adCheck.getUserId() == user.getId()) {
+//            User user = DaoFactory.getUsersDao().findByUsername(username);
 
-                DaoFactory.getAdsDao().deleteQuery(adid);
+            User user = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
+
+            String adid = request.getParameter("adId");
+            Ad adCheck = (Ad) DaoFactory.getSqlDao().findBySearch("ads", "id", adid);
+
+            if (adCheck.getUserId() == user.getId()) {
+                DaoFactory.getSqlDao().deleteQuery("ads", "id", adid);
             }
 
             response.sendRedirect("/ads");

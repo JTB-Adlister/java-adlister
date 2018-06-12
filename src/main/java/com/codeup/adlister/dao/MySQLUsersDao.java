@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.util.Password;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
@@ -24,37 +25,31 @@ public class MySQLUsersDao implements Users {
         }
     }
 
-    @Override
-    public List<User> listAll(){
+//    @Override
+//    public List<User> listAll(){
+//        try{
+//            String sql = "SELECT * FROM users";
+//            PreparedStatement stmt = connection.prepareStatement(sql);
+//            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+//            return createUsersFromResults(rs);
+//        } catch (SQLException e){
+//            throw new RuntimeException("Error listing all users", e);
+//        }
+//    }
 
-        try{
-            String sql = "SELECT * FROM users";
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery("SELECT * FROM users");
-            return createUserList(rs);
-        } catch (SQLException e){
-            throw new RuntimeException("Error listing all users", e);
-        }
-    }
-    private List<User> createUserList(ResultSet rs) throws SQLException {
-        List<User> users = new ArrayList<>();
-        while (rs.next()) {
-            users.add(extractUser(rs));
-        }
-        return users;
-    }
 
-    @Override
-    public User findByUsername(String username) {
-        String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, username);
-            return extractUser(stmt.executeQuery());
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding a user by username", e);
-        }
-    }
+
+//    @Override
+//    public User findByUsername(String username) {
+//        String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
+//        try {
+//            PreparedStatement stmt = connection.prepareStatement(query);
+//            stmt.setString(1, username);
+//            return extractUser(stmt.executeQuery());
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error finding a user by username", e);
+//        }
+//    }
 
     @Override
     public Long insert(User user) {
@@ -77,25 +72,25 @@ public class MySQLUsersDao implements Users {
 
     }
 
-    @Override
-    public User findByUserId(String id){
-        String sql = "SELECT * FROM users WHERE id = ?";
-        try{
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, id);
-            return extractUser(stmt.executeQuery());
-        } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving user by userid", e);
-        }
-    }
+//    @Override
+//    public User findByUserId(String id){
+//        String sql = "SELECT * FROM users WHERE id = ?";
+//        try{
+//            PreparedStatement stmt = connection.prepareStatement(sql);
+//            stmt.setString(1, id);
+//            return extractUser(stmt.executeQuery());
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error retrieving user by userid", e);
+//        }
+//    }
 
-    private List<User> createUsersFromResults(ResultSet rs) throws SQLException {
-        List<User> users = new ArrayList<>();
-        while (rs.next()) {
-            users.add(extractUser(rs));
-        }
-        return users;
-    }
+//    private List<User> createUsersFromResults(ResultSet rs) throws SQLException {
+//        List<User> users = new ArrayList<>();
+//        while (rs.next()) {
+//            users.add(extractUserForAll(rs));
+//        }
+//        return users;
+//    }
 
     @Override
     public boolean userExists(String username) {
@@ -109,15 +104,30 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+//    @Override
+//    public void deleteQuery(String userId){
+//        try {
+//            String sql = "DELETE FROM users WHERE id = ? Limit 1";
+//            PreparedStatement stmt = connection.prepareStatement(sql);
+//            stmt.setString(1, userId);
+//            stmt.execute();
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error deleting user", e);
+//        }
+//    }
+
     @Override
-    public void deleteQuery(String userId){
+    public void updateUser(User user, String username, String email, String passNew) {
         try {
-            String sql = "DELETE FROM users WHERE id = ? Limit 1";
+            String sql = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, userId);
+            stmt.setString(1, username);
+            stmt.setString(2, email);
+            stmt.setString(3, passNew);
+            stmt.setLong(4, user.getId());
             stmt.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException("Error deleting user", e);
+        } catch (SQLException e){
+            throw new RuntimeException("Error updating SQL database.", e);
         }
     }
 
@@ -125,16 +135,26 @@ public class MySQLUsersDao implements Users {
         return rs.next();
     }
 
-    private User extractUser(ResultSet rs) throws SQLException {
-        if (! rs.next()) {
-            return null;
-        }
-        return new User(
-                rs.getInt("id"),
-                rs.getString("username"),
-                rs.getString("email"),
-                rs.getString("password"),
-                rs.getString("userrole")
-        );
-    }
+//    private User extractUser(ResultSet rs) throws SQLException {
+//        if (! rs.next()) {
+//            return null;
+//        }
+//        return new User(
+//                rs.getInt("id"),
+//                rs.getString("username"),
+//                rs.getString("email"),
+//                rs.getString("password"),
+//                rs.getString("userrole")
+//        );
+//    }
+//
+//    private User extractUserForAll(ResultSet rs) throws SQLException {
+//        return new User(
+//                rs.getInt("id"),
+//                rs.getString("username"),
+//                rs.getString("email"),
+//                rs.getString("password"),
+//                rs.getString("userrole")
+//        );
+//    }
 }

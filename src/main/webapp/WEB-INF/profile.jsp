@@ -12,6 +12,7 @@
 
 <div class="container">
     <h1>Welcome, ${sessionScope.username}!</h1>
+    <a href="/updateuser">Update your information.</a>
     <c:forEach var="ad" items="${userAds}">
         <div class="col-md-6">
 

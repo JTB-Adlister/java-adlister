@@ -57,3 +57,4 @@ insert into users (userrole, username, email, password) VALUES ("admin", "Thomas
 
 UPDATE users SET userrole = 'admin' WHERE username = 'Thomas';
 
+

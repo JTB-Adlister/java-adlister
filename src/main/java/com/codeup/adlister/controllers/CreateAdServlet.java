@@ -1,7 +1,7 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.AdCategories;
-import com.codeup.adlister.dao.Categories;
+//import com.codeup.adlister.dao.Categories;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.AdCategory;
@@ -69,7 +69,7 @@ public class CreateAdServlet extends HttpServlet {
 
 
 //            using getAdsDao.findByRandId instead of new method because long random can not be effectively cast to string
-            Ad checkAd = DaoFactory.getAdsDao().findByRandId(random);
+            Ad checkAd = (Ad) DaoFactory.getSqlDao().findBySearch("ads","randid",Long.toString(random));
 
 
 

@@ -65,7 +65,7 @@ public class MySQLDao implements SQL {
 
     @Override
     public List<Object> listBySearch(String table, String column, String data){
-        String input = "SELECT * FROM " + table + " WHERE " + column + " = ? Limit 1";
+        String input = "SELECT * FROM " + table + " WHERE " + column + " = ?";
         try{
             PreparedStatement stmt = connection.prepareStatement(input);
             stmt.setString(1, data);
@@ -77,11 +77,24 @@ public class MySQLDao implements SQL {
                 return createObjectsForSearch(stmt.executeQuery(), "user");
             }
             if(table.equals("ads")){
-                return createObjectsForSearch(stmt.executeQuery(), "ads");
+                return createObjectsForSearch(stmt.executeQuery(), "ad");
             }
             return null;
         } catch (SQLException e){
             throw new RuntimeException("Error searching for " + data + " in " + table, e);
+        }
+    }
+
+
+    @Override
+    public void deleteQuery(String table, String column, String data){
+        String sql = "DELETE FROM " + table + " WHERE " + column + " = ? Limit 1";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, data);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting " + column + " from " + table, e);
         }
     }
 
@@ -114,7 +127,7 @@ public class MySQLDao implements SQL {
         List<Object> ads = new ArrayList<>();
         if(type.equals("ad")) {
             while (rs.next()) {
-                ads.add(extractAdSearch(rs));
+                ads.add(extractAd(rs));
             }
         }
         if(type.equals("user")) {

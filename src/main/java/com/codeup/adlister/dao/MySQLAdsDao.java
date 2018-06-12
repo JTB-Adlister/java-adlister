@@ -25,17 +25,17 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    @Override
-    public List<Ad> all() {
-        try {
-            String sql = "SELECT * FROM ads";
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery("SELECT * FROM ads");
-            return createAdsFromResults(rs);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving all ads.", e);
-        }
-    }
+//    @Override
+//    public List<Ad> all() {
+//        try {
+//            String sql = "SELECT * FROM ads";
+//            PreparedStatement stmt = connection.prepareStatement(sql);
+//            ResultSet rs = stmt.executeQuery("SELECT * FROM ads");
+//            return createAdsFromResults(rs);
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error retrieving all ads.", e);
+//        }
+//    }
     @Override
     public List<Ad> search(String searchTerm){
         String input = "SELECT * FROM ads WHERE title LIKE ? OR description LIKE ?";
@@ -51,20 +51,20 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    @Override
-    public List<Ad> listByUser (int id) {
-        try{
-            String sql = "SELECT * FROM ads WHERE userid = ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            String userId = Integer.toString(id);
-            stmt.setString(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            return createAdsFromResults(rs);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving ads by user id", e);
-        }
-    }
-    @Override
+//    @Override
+//    public List<Ad> listByUser (int id) {
+//        try{
+//            String sql = "SELECT * FROM ads WHERE userid = ?";
+//            PreparedStatement stmt = connection.prepareStatement(sql);
+//            String userId = Integer.toString(id);
+//            stmt.setString(1, userId);
+//            ResultSet rs = stmt.executeQuery();
+//            return createAdsFromResults(rs);
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error retrieving ads by user id", e);
+//        }
+//    }
+//    @Override
     public Long insert(Ad ad) {
         try {
             String sql = "INSERT INTO ads(userid, randId, title, description) VALUES (?, ?, ?, ?)";
@@ -82,46 +82,46 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    @Override
-    public void deleteQuery(String adId){
-        try {
-            String sql = "DELETE FROM ads WHERE id = ? Limit 1";
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, adId);
+//    @Override
+//    public void deleteQuery(String adId){
+//        try {
+//            String sql = "DELETE FROM ads WHERE id = ? Limit 1";
+//            PreparedStatement stmt = connection.prepareStatement(sql);
+//            stmt.setString(1, adId);
+//
+//
+//            stmt.execute();
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error deleting ad", e);
+//        }
+//    }
 
+//    @Override
+//    public Ad findById(int id) {
+//        String query = "SELECT * FROM ads WHERE id = ? LIMIT 1";
+//        try {
+//            PreparedStatement stmt = connection.prepareStatement(query);
+//            String adId = Integer.toString(id);
+//            stmt.setString(1, adId);
+//            return extractAdId(stmt.executeQuery());
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error finding ad by id", e);
+//        }
+//    }
 
-            stmt.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException("Error deleting ad", e);
-        }
-    }
-
-    @Override
-    public Ad findById(int id) {
-        String query = "SELECT * FROM ads WHERE id = ? LIMIT 1";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            String adId = Integer.toString(id);
-            stmt.setString(1, adId);
-            return extractAdId(stmt.executeQuery());
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding ad by id", e);
-        }
-    }
-
-    @Override
-    public Ad findByRandId(long id) {
-        String query = "SELECT * FROM ads WHERE randId = ? LIMIT 1";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            String randId = Long.toString(id);
-            stmt.setString(1, randId);
-            return extractAdId(stmt.executeQuery());
-        } catch (SQLException e) {
-            throw new RuntimeException("Error finding ad by id", e);
-        }
-    }
-    @Override
+//    @Override
+//    public Ad findByRandId(long id) {
+//        String query = "SELECT * FROM ads WHERE randId = ? LIMIT 1";
+//        try {
+//            PreparedStatement stmt = connection.prepareStatement(query);
+//            String randId = Long.toString(id);
+//            stmt.setString(1, randId);
+//            return extractAdId(stmt.executeQuery());
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Error finding ad by id", e);
+//        }
+//    }
+//    @Override
     public List<Ad> listByCat(int catId) {
         String query = "SELECT * FROM ads a JOIN adCategory a2 ON a.id = a2.adID JOIN categories c ON a2.catID = c.id " +
                 "WHERE a2.catID = ?";
@@ -136,18 +136,18 @@ public class MySQLAdsDao implements Ads {
     }
 
 
-    private Ad extractAdId(ResultSet rs) throws SQLException {
-        if (! rs.next()) {
-            return null;
-        }
-        return new Ad(
-                rs.getLong("id"),
-                rs.getLong("userid"),
-                rs.getLong("randId"),
-                rs.getString("title"),
-                rs.getString("description")
-        );
-    }
+//    private Ad extractAdId(ResultSet rs) throws SQLException {
+//        if (! rs.next()) {
+//            return null;
+//        }
+//        return new Ad(
+//                rs.getLong("id"),
+//                rs.getLong("userid"),
+//                rs.getLong("randId"),
+//                rs.getString("title"),
+//                rs.getString("description")
+//        );
+//    }
 
 
     private Ad extractAd(ResultSet rs) throws SQLException {

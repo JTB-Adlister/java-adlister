@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.util.Password;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
@@ -112,6 +113,21 @@ public class MySQLUsersDao implements Users {
             stmt.execute();
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting user", e);
+        }
+    }
+
+    @Override
+    public void updateUser(User user, String username, String email, String passNew) {
+        try {
+            String sql = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, username);
+            stmt.setString(2, email);
+            stmt.setString(3, passNew);
+            stmt.setLong(4, user.getId());
+            stmt.execute();
+        } catch (SQLException e){
+            throw new RuntimeException("Error updating SQL database.", e);
         }
     }
 

@@ -57,7 +57,8 @@ public class UpdateServlet extends HttpServlet {
 
         String hashPW = Password.hash(passNew);
         DaoFactory.getUsersDao().updateUser(user, username, email, hashPW);
-        User newUser = DaoFactory.getUsersDao().findByUsername(username);
+//        User newUser = DaoFactory.getUsersDao().findByUsername(username);
+        User newUser = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
         request.getSession().setAttribute("username", newUser.getUsername());
         response.sendRedirect("/profile");
     }

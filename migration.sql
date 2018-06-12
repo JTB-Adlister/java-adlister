@@ -1,9 +1,9 @@
 USE adlister_db;
 
-DROP TABLE IF EXISTS ads;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS adCategory;
 DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS ads;
+DROP TABLE IF EXISTS users;
 
 # Ensure the name is UNIQUE for no duplicates.
 CREATE TABLE users (
@@ -51,10 +51,21 @@ DELETE from users;
 
 SELECT * from ads;
 
-INSERT INTO categories (catTitle) VALUES ("jobs");
+INSERT INTO categories (catTitle) VALUES ('jobs'),
+    ('pets'),
+    ('tools'),
+    ('electronics'),
+    ('games'),
+    ('auto'),
+    ('furniture'),
+    ('personals'),
+    ('missed connections');
 
-insert into users (userrole, username, email, password) VALUES ("admin", "Thomas", "thomas@gmail.com", "codeup");
+insert into users (userrole, username, email, password) VALUES ('admin', 'Thomas', 'thomas@gmail.com', 'codeup');
 
 UPDATE users SET userrole = 'admin' WHERE username = 'Thomas';
+
+insert into users (userrole, username, email, password) VALUES ('admin', 'shake', 'shake@email.com', 'test');
+
 
 

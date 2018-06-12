@@ -14,18 +14,19 @@ import java.io.IOException;
 @WebServlet(name = "controllers.ShowInfoServlet", urlPatterns = "/showinfo")
 public class ShowAdInfoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        if (request.getSession().getAttribute("showAd") == null) {
-//            response.sendRedirect("/ads");
-//            return;
-//        }
+        if (request.getSession().getAttribute("showAd") == null) {
+            response.sendRedirect("/ads");
+            return;
+        }
         request.getRequestDispatcher("/WEB-INF/ads/adInfo.jsp").forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String adid = request.getParameter("adInfo");
-        int adId = Integer.parseInt(adid);
-        Ad showAd = DaoFactory.getAdsDao().findById(adId);
+
+        //Ad showAd = DaoFactory.getAdsDao().findById(adId);
+        Ad showAd = (Ad) DaoFactory.getSqlDao().findBySearch("ads", "id", adid);
+
         long userId = showAd.getUserId();
-        System.out.println("user id " + userId);
         request.setAttribute("showAd", showAd);
         request.getSession().setAttribute("adUserId", userId);
         request.getRequestDispatcher("/WEB-INF/ads/adInfo.jsp").forward(request, response);

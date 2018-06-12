@@ -61,7 +61,11 @@ INSERT INTO categories (catTitle) VALUES ('jobs'),
     ('personals'),
     ('missed connections');
 
+
+insert into users (userrole, username, email, password) VALUES ("user", "arianag", "grande@email.com", "codeup");
+
 insert into users (userrole, username, email, password) VALUES ('admin', 'Thomas', 'thomas@gmail.com', 'codeup');
+
 
 UPDATE users SET userrole = 'admin' WHERE username = 'Thomas';
 

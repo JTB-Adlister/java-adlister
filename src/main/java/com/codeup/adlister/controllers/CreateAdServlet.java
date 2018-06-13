@@ -31,7 +31,7 @@ public class CreateAdServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null){
             response.sendRedirect("/login");
             return;
@@ -39,14 +39,15 @@ public class CreateAdServlet extends HttpServlet {
 
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        String[] titles = request.getParameterValues("catSelect");
+        String[] categories = request.getParameterValues("catSelect");
 
-        if(title.isEmpty()||description.isEmpty()|| titles == null){
-            request.getSession().setAttribute("errorMessage", null);
+        if(title.isEmpty()||description.isEmpty()|| categories == null){
+            request.removeAttribute("errorMessage");
             List<String> errors = new ArrayList<>();
             errors.add("Please fill out all details");
-            request.getSession().setAttribute("errorMessage", errors);
-            response.sendRedirect("/ads/create");
+            request.setAttribute("errorMessage", errors);
+            request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
+
 
         } else {
             System.out.println(request.getSession().getAttribute("userId"));
@@ -76,9 +77,9 @@ public class CreateAdServlet extends HttpServlet {
             if(random == checkAd.getRandId() && userid == checkAd.getUserId()) {
 
                 //creates a list of categories and assigns them to the ad
-                List categories = Arrays.asList(titles);
+                List categoryList = Arrays.asList(categories);
 
-                for (Object c : categories) {
+                for (Object c : categoryList) {
                     int i = Integer.valueOf((String) c);
 
                     long id = (long) i;

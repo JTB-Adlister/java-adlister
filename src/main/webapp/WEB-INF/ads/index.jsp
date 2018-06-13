@@ -1,3 +1,7 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.codeup.adlister.models.Category" %>
+<%@ page import="com.codeup.adlister.models.Ad" %>
+<%@ page import="com.codeup.adlister.dao.DaoFactory" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% session.setAttribute("currentpage", "ads"); %>

@@ -9,6 +9,8 @@
 <body>
 <div class="container">
     <h1>Update an Ad</h1>
+    <jsp:include page="../partials/errorMessage.jsp" />
+
     <form action="ads/create" method="post">
         <div class="form-group">
             <label for="title">Title</label>

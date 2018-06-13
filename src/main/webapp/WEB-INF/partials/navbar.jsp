@@ -36,9 +36,11 @@
         <li class="px-3 py-2">
             <form action="./login" method="POST" class="form" role="form">
                 <div class="form-group">
-                    <input id="username" name="username" placeholder= "Username" class="form-control form-control-sm" type="text" required="">
+                    <p>Username</p>
+                    <input id="username" name="username" placeholder= "${}" class="form-control form-control-sm" type="text" required="">
                 </div>
                 <div class="form-group">
+                    <p>Password</p>
                     <input id="password" name="password" placeholder="Password" class="form-control form-control-sm" type="password" required="">
                 </div>
                 <div class="form-group">

@@ -48,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
             DaoFactory.getUsersDao().insert(new User(0, username, email, password, "user"));
 
             //User user = DaoFactory.getUsersDao().findByUsername(username);
-            User user = (User) DaoFactory.getSqlDao().listBySearch("users", "user", username);
+            User user = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
 
             long id = user.getId();
             request.getSession().setAttribute("user", user);

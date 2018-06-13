@@ -61,6 +61,7 @@ public class LoginServlet extends HttpServlet {
                 List<String> errors = new ArrayList<>();
                 errors.add("Incorrect Password");
                 request.getSession().setAttribute("errorMessage", errors);
+
                 response.sendRedirect("/login");
             }
         } else {
@@ -68,6 +69,8 @@ public class LoginServlet extends HttpServlet {
             List<String> errors = new ArrayList<>();
             errors.add("User does not exist");
             request.getSession().setAttribute("errorMessage", errors);
+            request.getSession().setAttribute("placeholder", username);
+            request.getSession().setAttribute("passholder", password);
             response.sendRedirect("/register");
         }
     }

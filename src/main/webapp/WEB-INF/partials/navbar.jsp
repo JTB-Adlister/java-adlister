@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <nav>
     <li><a href="/">Home</a></li>
     <li><a href="/profile">Profile</a></li>
@@ -35,7 +36,7 @@
         <li class="px-3 py-2">
             <form action="./login" method="POST" class="form" role="form">
                 <div class="form-group">
-                    <input id="username" name="username" placeholder="Email" class="form-control form-control-sm" type="text" required="">
+                    <input id="username" name="username" placeholder= "Username" class="form-control form-control-sm" type="text" required="">
                 </div>
                 <div class="form-group">
                     <input id="password" name="password" placeholder="Password" class="form-control form-control-sm" type="password" required="">

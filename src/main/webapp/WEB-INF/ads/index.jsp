@@ -1,3 +1,7 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.codeup.adlister.models.Category" %>
+<%@ page import="com.codeup.adlister.models.Ad" %>
+<%@ page import="com.codeup.adlister.dao.DaoFactory" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% session.setAttribute("currentpage", "ads"); %>
@@ -22,6 +26,8 @@
 <div class="container">
     <h1>Here Are all the ads!</h1>
 
+
+
     <div class="create">
         <form action="/ad_categories" method="post" id="catForm">
             <select id="categoryList" name="categoryList" form="catForm">
@@ -34,16 +40,45 @@
     </div>
 
     <div class="container adContainer col-md-12">
-        <c:forEach var="ad" items="${ads}">
-            <div class="ads col-md-5">
-                <form action="/showinfo" method="post">
-                    <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
-                    <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
-                    <input type="Submit" value="View Ad">
+        <%
+            List<Object> categories = (List) request.getSession().getAttribute("categories");
+            for (Object category : categories){
+                Category newCat = (Category) category;
+                int id = (int) newCat.getId();
+                String title = newCat.getCatTitle();
+                request.getSession().setAttribute("thisTitle", title);
+                List<Ad> catAds = DaoFactory.getAdsDao().listByCat(id);
+                request.getSession().setAttribute("catAds", catAds);
+                %>
+        <div class="ads col-md-5">
+        <h3>${sessionScope.thisTitle}</h3>
+            <div>
+            <c:forEach var = "ad" items = "${catAds}">
+                <form action="/showinfo" method="post" style="clear:both;">
+                <label for="adInfo">${ad.title}</label>
+                <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
+                <input type="Submit" value="View Ad">
                 </form>
+            </c:forEach>
             </div>
-        </c:forEach>
+        </div>
+        <%
+            }
+        %>
+
     </div>
+
+    <%--<div class="container adContainer col-md-12">--%>
+        <%--<c:forEach var="ad" items="${ads}">--%>
+            <%--<div class="ads col-md-5">--%>
+                <%--<form action="/showinfo" method="post">--%>
+                    <%--<label for="adInfo">${ad.title}</label>--%>
+                    <%--<input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>--%>
+                    <%--<input type="Submit" value="View Ad">--%>
+                <%--</form>--%>
+            <%--</div>--%>
+        <%--</c:forEach>--%>
+    <%--</div>--%>
 
 </div>
 <%@ include file="/WEB-INF/partials/scripts.jsp" %>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @WebServlet(name = "controllers.AdsIndexServlet", urlPatterns = "/ads")
@@ -20,6 +21,41 @@ public class AdsIndexServlet extends HttpServlet {
         request.setAttribute("ads", DaoFactory.getSqlDao().listAll("ads", "ad"));
         //List<Category> categories = DaoFactory.getCategoriesDao().listAll();
         List<Object> categories = DaoFactory.getSqlDao().listAll("categories", "category");
+
+
+        ArrayList allCategories = new ArrayList<>();
+
+
+        for(Object category: categories) {
+            Category newCat = (Category) category;
+            String title = newCat.getCatTitle();
+            List<Ad> adListByCat = DaoFactory.getAdsDao().listByCat( (int) newCat.getId());
+
+            List<Object> categoryList = new ArrayList<>();
+            categoryList.add(title);
+            categoryList.add(adListByCat);
+            allCategories.add(categoryList);
+        }
+
+        List<Object> ads = DaoFactory.getSqlDao().listAll("ads", "ad");
+        Ad randomOne = DaoFactory.getAdsDao().randomAd(ads);
+        Ad randomTwo = DaoFactory.getAdsDao().randomAd(ads);
+        Ad randomThree = DaoFactory.getAdsDao().randomAd(ads);
+
+        List<Ad> ranList = new ArrayList<>();
+        ranList.add(randomOne);
+        ranList.add(randomTwo);
+        ranList.add(randomThree);
+
+        request.getSession().setAttribute("ranList", ranList);
+
+        for(Object item: allCategories){
+            System.out.println(item);
+
+        }
+
+        request.getSession().setAttribute("adsByCat", allCategories);
+
         request.getSession().setAttribute("categories", categories);
         request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
     }

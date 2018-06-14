@@ -37,6 +37,25 @@
         </form>
     </div>
 
+    <%--<div>--%>
+        <%--<c:forEach var="cate" items="${sessionScope.adsByCat}">--%>
+            <%--<h1>${cate[0]}</h1>--%>
+            <%--<c:forEach var="ad" items="${cate[1]}">--%>
+                <%--<div>--%>
+                    <%--<h6>${ad.title}</h6>--%>
+                <%--</div>--%>
+            <%--</c:forEach>--%>
+
+        <%--</c:forEach>--%>
+    <%--</div>--%>
+
+    <div class="container adContainer col-md-12">
+        <c:forEach var="ad" items="${ranList}">
+            <h5>${ad.title}</h5>
+            <p>${ad.description}</p>
+        </c:forEach>
+    </div>
+
     <div class="container adContainer col-md-12">
         <c:forEach var="ad" items="${ads}">
             <div class="ads col-md-5">

@@ -129,11 +129,21 @@ public class MySQLAdsDao implements Ads {
             PreparedStatement stmt = connection.prepareStatement(query);
             String id = Integer.toString(catId);
             stmt.setString(1,id);
-            return createAdsFromResults(stmt.executeQuery());
+            return createAdsFromResultsCat(stmt.executeQuery());
         } catch (SQLException e){
             throw new RuntimeException("Error finding ad by category", e);
         }
     }
+
+    @Override
+    public Ad randomAd(List<Object> ads){
+        int length = ads.size();
+        int random = (int) (Math.random() * (length - 1));
+        return (Ad) ads.get(random);
+
+    }
+
+
 
 
 //    private Ad extractAdId(ResultSet rs) throws SQLException {
@@ -163,8 +173,28 @@ public class MySQLAdsDao implements Ads {
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
         while (rs.next()) {
-            ads.add(extractAd(rs));
+            ads.add(extractAdCat(rs));
         }
         return ads;
     }
+
+    private List<Ad> createAdsFromResultsCat(ResultSet rs) throws SQLException {
+        List<Ad> ads = new ArrayList<>();
+        while (rs.next()) {
+            ads.add(extractAdCat(rs));
+        }
+        return ads;
+    }
+
+    private Ad extractAdCat(ResultSet rs) throws SQLException {
+        return new Ad(
+                rs.getLong("id"),
+                rs.getLong("userid"),
+                rs.getLong("randId"),
+                rs.getString("title"),
+                rs.getString("description"),
+                rs.getString("catTitle")
+        );
+    }
 }
+

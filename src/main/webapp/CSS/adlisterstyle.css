@@ -41,15 +41,15 @@ button:focus {
     margin: 0 auto;
 }
 
-.create, .delete{
+.delete{
     float: right;
     position: absolute;
     right: 1em;
 }
 
-h1, h3 {
-    float: left;
-}
+/*h1, h3 {*/
+    /*float: left;*/
+/*}*/
 
 .adContainer, .categories {
     clear: both;
@@ -84,4 +84,12 @@ body {
 .adButton {
     background-color: transparent;
     border: none;
+}
+
+.centered {
+    margin: 0 auto;
+}
+
+.textcent {
+    text-align: center;
 }

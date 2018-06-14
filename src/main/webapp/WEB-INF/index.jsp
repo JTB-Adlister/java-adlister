@@ -12,19 +12,55 @@
     <div class="container">
     <h1>Welcome to the Adlister!</h1>
 
-        <div class="container categories col-md-12">
-            <div class="ads col-md-12">
-                <ul>
-                    <form action="/ad_categories" method="post" id="catForm">
-                        <c:forEach var="category" items="${categories}">
-                            <button name="categoryList" form="catForm" value="${category.id}">
-                                    ${category.catTitle}
-                            </button>
-                        </c:forEach>
-                    </form>
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            <div class="container categories col-md-12">
+                <h3 style="text-align: center;">Featured Ads</h3>
+
+                <ul class="carousel-indicators">
+                    <li data-target="#demo" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo" data-slide-to="1"></li>
+                    <li data-target="#demo" data-slide-to="2"></li>
                 </ul>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div>
+                            <form action="/showinfo" method="post" style="clear:both;">
+                            <input name="adInfo" type="hidden" value=${random[0].id}>
+                                <button class="adButton"><h1>${random[0].title}</h1></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div>
+                            <form action="/showinfo" method="post" style="clear:both;">
+                                <input name="adInfo" type="hidden" value=${random[1].id}>
+                                <button class="adButton"><h1>${random[1].title}</h1></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div>
+                            <form action="/showinfo" method="post" style="clear:both;">
+                                <input name="adInfo" type="hidden" value=${random[2].id}>
+                                <button class="adButton"><h1>${random[2].title}</h1></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
             </div>
+
+
         </div>
+
+
 
     </div>
 

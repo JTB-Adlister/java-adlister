@@ -27,34 +27,37 @@ public class UpdateServlet extends HttpServlet {
         String passOld = request.getParameter("passOld");
         User user = (User) request.getSession().getAttribute("user");
         String hash = user.getPassword();
+        boolean nameExists = DaoFactory.getUsersDao().userExists(username);
+        boolean rightPass = Password.check(passOld, hash);
+        boolean matchPass = passNew.equals(passCheck);
+        boolean diffPass = passNew.equals(passOld);
 
-        if (DaoFactory.getUsersDao().userExists(username)){
-            request.getSession().setAttribute("message", null);
-            List<String> errors = new ArrayList<>();
-            errors.add("That username already exists. Please try again");
-            request.getSession().setAttribute("message", errors);
+        request.getSession().setAttribute("message", null);
+        if (nameExists || !rightPass || !matchPass) {
+            if (nameExists) {
+                String usererror = "That username already exists. Please try again.";
+                request.getSession().setAttribute("usermessage", usererror);
+            }
+            if (!rightPass) {
+                String passError = "The old password you entered was invalid. Please try again.";
+                request.getSession().setAttribute("passmessage1", passError);
+            }
+            if (!matchPass) {
+                String matchError = "The new passwords did not match. Please try again.";
+                request.getSession().setAttribute("passmessage2", matchError);
+            }
+            if (diffPass) {
+                String diffError = "Can't reuse same password. Please try again.";
+                request.getSession().setAttribute("samepass", diffError);
+            }
+            request.getSession().setAttribute("name", username);
+            request.getSession().setAttribute("email", email);
             response.sendRedirect("/updateuser");
             return;
         }
-
-        if (!Password.check(passOld, hash)) {
-            request.getSession().setAttribute("message", null);
-            List<String> errors = new ArrayList<>();
-            errors.add("The old password you entered was invalid. Please try again.");
-            request.getSession().setAttribute("message", errors);
-            response.sendRedirect("/updateuser");
-            return;
-        }
-
-        if (!passNew.equals(passCheck)) {
-            request.getSession().setAttribute("message", null);
-            List<String> errors = new ArrayList<>();
-            errors.add("The new passwords entered did not match.");
-            request.getSession().setAttribute("message", errors);
-            response.sendRedirect("/updateuser");
-            return;
-        }
-
+        request.getSession().setAttribute("name", null);
+        request.getSession().setAttribute("email", null);
+        request.getSession().setAttribute("message", null);
         String hashPW = Password.hash(passNew);
         DaoFactory.getUsersDao().updateUser(user, username, email, hashPW);
         User newUser = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);

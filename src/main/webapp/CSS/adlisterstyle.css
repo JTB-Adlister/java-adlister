@@ -53,8 +53,8 @@ h1, h3 {
 
 .adContainer, .categories {
     clear: both;
-    margin: auto;
-    width: 80%;
+    margin: 0;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -79,4 +79,9 @@ body {
 
 .form-group {
     clear: both;
+}
+
+.adButton {
+    background-color: transparent;
+    border: none;
 }

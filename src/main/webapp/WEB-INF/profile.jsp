@@ -15,7 +15,7 @@
 
         <h1>Welcome, ${sessionScope.username}!</h1>
         <div class="create">
-            <form action="/updateuser" method="post">
+            <form action="/updateuser" method="get">
                 <input type="submit" value="Update your profile">
             </form>
         </div>

@@ -37,7 +37,7 @@
             <form action="./login" method="POST" class="form" role="form">
                 <div class="form-group">
                     <p>Username</p>
-                    <input id="username" name="username" placeholder= "${}" class="form-control form-control-sm" type="text" required="">
+                    <input id="username" name="username" placeholder= "Username" class="form-control form-control-sm" type="text" required="">
                 </div>
                 <div class="form-group">
                     <p>Password</p>

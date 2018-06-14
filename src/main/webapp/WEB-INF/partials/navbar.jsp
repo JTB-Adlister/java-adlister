@@ -4,12 +4,9 @@
 
 <nav>
     <li><a href="/">Home</a></li>
-    <li><a href="/profile">Profile</a></li>
     <li><a href="/ads">Ads</a></li>
     <% request.getSession();
         if (session.getAttribute("pagename") != null){%>
-
-
     <%
     }
     %>
@@ -23,8 +20,22 @@
     <% request.getSession();
         if (session.getAttribute("user") != null){%>
 
-    <li class="login"><a href="/logout">Logout</a></li>
+
     <li><a href="ads/create">Create Ad</a></li>
+
+    <button type="button" id="dropdownMenu2" data-toggle="dropdown" class="login btn btn-outline-secondary dropdown-toggle">${sessionScope.username} <span class="caret"></span></button>
+    <ul class="dropdown-menu dropdown-menu-right mt-2">
+        <div>
+            <button class="btn btn-primary btn-block drop"><a href="/profile">Profile</a></button>
+        </div>
+        <div>
+            <form action="/logout" method="GET" class="form" role="form">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block drop">Logout</button>
+                </div>
+            </form>
+        </div>
+    </ul>
 
 
     <%

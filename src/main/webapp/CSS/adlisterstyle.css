@@ -85,3 +85,8 @@ body {
     background-color: transparent;
     border: none;
 }
+
+.drop {
+    margin: .5em auto;
+    width: 80%;
+}

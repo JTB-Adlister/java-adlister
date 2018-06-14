@@ -26,47 +26,47 @@
 <div class="container">
     <h1>Here Are all the ads!</h1>
 
-
-
-    <div class="create">
-        <form action="/ad_categories" method="post" id="catForm">
-            <select id="categoryList" name="categoryList" form="catForm">
-                <c:forEach var="Category" items="${sessionScope.categories}">
-                    <option value=${Category.id}><c:out value="${Category.catTitle}"></c:out></option>
-                </c:forEach>
-            </select>
-            <input type="submit">
-        </form>
-    </div>
-
-    <div class="container adContainer col-md-12">
-        <%
-            List<Object> categories = (List) request.getSession().getAttribute("categories");
-            for (Object category : categories){
-                Category newCat = (Category) category;
-                int id = (int) newCat.getId();
-                String title = newCat.getCatTitle();
-                request.getSession().setAttribute("thisTitle", title);
-                List<Ad> catAds = DaoFactory.getAdsDao().listByCat(id);
-                request.getSession().setAttribute("catAds", catAds);
-                %>
-        <div class="ads col-md-5">
-        <h3>${sessionScope.thisTitle}</h3>
-            <div>
-            <c:forEach var = "ad" items = "${catAds}">
-                <form action="/showinfo" method="post" style="clear:both;">
-                <label for="adInfo">${ad.title}</label>
-                <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
-                <input type="Submit" value="View Ad">
+    <div class="container categories col-md-12">
+        <div class="ads col-md-12">
+            <ul>
+                <form action="/ad_categories" method="post" id="catForm">
+                    <c:forEach var="category" items="${categories}">
+                        <button name="categoryList" form="catForm" value="${category.id}">
+                                ${category.catTitle}
+                        </button>
+                    </c:forEach>
                 </form>
-            </c:forEach>
-            </div>
+            </ul>
         </div>
-        <%
-            }
-        %>
-
     </div>
+
+    <%--<div class="container adContainer col-md-12">--%>
+        <%--<%--%>
+            <%--List<Object> categories = (List) request.getSession().getAttribute("categories");--%>
+            <%--for (Object category : categories){--%>
+                <%--Category newCat = (Category) category;--%>
+                <%--int id = (int) newCat.getId();--%>
+                <%--String title = newCat.getCatTitle();--%>
+                <%--request.getSession().setAttribute("thisTitle", title);--%>
+                <%--List<Ad> catAds = DaoFactory.getAdsDao().listByCat(id);--%>
+                <%--request.getSession().setAttribute("catAds", catAds);--%>
+                <%--%>--%>
+        <%--<div class="ads col-md-2">--%>
+        <%--<h3>${sessionScope.thisTitle}</h3>--%>
+            <%--<div>--%>
+            <%--<c:forEach var = "ad" items = "${catAds}">--%>
+                <%--<form action="/showinfo" method="post" style="clear:both;">--%>
+                <%--<input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>--%>
+                    <%--<button class="adButton">${ad.title}</button>--%>
+                <%--</form>--%>
+            <%--</c:forEach>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+        <%--<%--%>
+            <%--}--%>
+        <%--%>--%>
+
+    <%--</div>--%>
 
     <%--<div class="container adContainer col-md-12">--%>
         <%--<c:forEach var="ad" items="${ads}">--%>

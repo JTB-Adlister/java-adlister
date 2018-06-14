@@ -26,7 +26,11 @@
     <button type="button" id="dropdownMenu2" data-toggle="dropdown" class="login btn btn-outline-secondary dropdown-toggle">${sessionScope.username} <span class="caret"></span></button>
     <ul class="dropdown-menu dropdown-menu-right mt-2">
         <div>
-            <button class="btn btn-primary btn-block drop"><a href="/profile">Profile</a></button>
+            <form action="/profile" method="GET" class="form" role="form">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block drop">Profile</button>
+                </div>
+            </form>
         </div>
         <div>
             <form action="/logout" method="GET" class="form" role="form">

@@ -61,8 +61,8 @@ public class LoginServlet extends HttpServlet {
                 request.removeAttribute("errorMessage");
                 List<String> errors = new ArrayList<>();
                 errors.add("Incorrect Password");
-                request.setAttribute("errorMessage", errors);
-                request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+                 request.getSession().setAttribute("errorMessage", errors);
+                 response.sendRedirect("/login");
 
             }
         } else {
@@ -70,8 +70,9 @@ public class LoginServlet extends HttpServlet {
             List<String> errors = new ArrayList<>();
             errors.add("User does not exist");
             request.getSession().setAttribute("errorMessage", errors);
-            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-
+            request.getSession().setAttribute("placeholder", username);
+            request.getSession().setAttribute("passholder", password);
+            response.sendRedirect("/register");
         }
     }
 }

@@ -15,10 +15,10 @@
 
         <h1>Welcome, ${sessionScope.username}!</h1>
         <div class="create">
-            <a href="updateuser">Update Profile</a>
-            <%--<form action="/updateuser" method="post">--%>
-                <%--<input type="submit" value="Update your profile">--%>
-            <%--</form>--%>
+
+            <form action="/updateuser" method="get">
+                <input type="submit" value="Update your profile">
+            </form>
         </div>
 
         <div class="container adContainer col-md-12">

@@ -7,6 +7,7 @@
     </jsp:include>
 </head>
 <body>
+<jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
     <h1>Update an Ad</h1>
     <jsp:include page="../partials/errorMessage.jsp" />
@@ -26,7 +27,6 @@
         </c:forEach>
         <input type="submit" class="btn btn-block btn-primary">
     </form>
-
 </div>
 </body>
 </html>

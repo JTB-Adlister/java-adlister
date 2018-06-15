@@ -11,11 +11,11 @@
         <jsp:include page="partials/errorMessage.jsp" />
 
         <h1>Please fill in your information.</h1>
+        <h3 style="color: red;">${errorMessage}</h3>
         <form action="/register" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input id="username" name="username" class="form-control" type="text">
-                <p>${message}</p>
+                <input id="username" name="username" class="form-control" type="text" placeholder="${placeholder}">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>

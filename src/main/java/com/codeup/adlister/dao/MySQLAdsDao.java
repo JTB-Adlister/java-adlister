@@ -135,13 +135,6 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    @Override
-    public Ad randomAd(List<Object> ads){
-        int length = ads.size();
-        int random = (int) (Math.random() * (length - 1));
-        return (Ad) ads.get(random);
-
-    }
 
 
 
@@ -195,6 +188,19 @@ public class MySQLAdsDao implements Ads {
                 rs.getString("description"),
                 rs.getString("catTitle")
         );
+    }
+    @Override
+    public List<Ad> randomAds(List<Object> ads){
+        int length = ads.size()-1;
+        List<Ad> newAdList = new ArrayList<>();
+        for(int i = 0; i < 3; i++){
+            int random = (int) (Math.random() * (length - 1));
+            Ad newAd = (Ad) ads.get(random);
+            ads.remove(random);
+            newAdList.add(newAd);
+        }
+
+        return newAdList;
     }
 }
 

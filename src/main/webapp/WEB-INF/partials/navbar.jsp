@@ -1,14 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+
 <nav>
     <li><a href="/">Home</a></li>
-    <li><a href="/profile">Profile</a></li>
     <li><a href="/ads">Ads</a></li>
     <% request.getSession();
         if (session.getAttribute("pagename") != null){%>
-
-
     <%
     }
     %>
@@ -22,8 +20,26 @@
     <% request.getSession();
         if (session.getAttribute("user") != null){%>
 
-    <li class="login"><a href="/logout">Logout</a></li>
+
     <li><a href="ads/create">Create Ad</a></li>
+
+    <button type="button" id="dropdownMenu2" data-toggle="dropdown" class="login btn btn-outline-secondary dropdown-toggle">${sessionScope.username} <span class="caret"></span></button>
+    <ul class="dropdown-menu dropdown-menu-right mt-2">
+        <div>
+            <form action="/profile" method="GET" class="form" role="form">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block drop">Profile</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form action="/logout" method="GET" class="form" role="form">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block drop">Logout</button>
+                </div>
+            </form>
+        </div>
+    </ul>
 
 
     <%
@@ -35,16 +51,24 @@
         <li class="px-3 py-2">
             <form action="./login" method="POST" class="form" role="form">
                 <div class="form-group">
-                    <input id="username" name="username" placeholder="Email" class="form-control form-control-sm" type="text" required="">
+                    <p>Username</p>
+                    <input id="username" name="username" placeholder= "Username" class="form-control form-control-sm" type="text" required="">
                 </div>
                 <div class="form-group">
+                    <p>Password</p>
                     <input id="password" name="password" placeholder="Password" class="form-control form-control-sm" type="password" required="">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">Login</button>
                 </div>
             </form>
-            <button class="btn btn-primary btn-block"><a href="/register">Register</a></button>
+
+                <form action="/register" method="GET" class="form" role="form">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                </form>
+
         </li>
     </ul>
 

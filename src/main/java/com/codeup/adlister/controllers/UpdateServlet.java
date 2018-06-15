@@ -27,53 +27,42 @@ public class UpdateServlet extends HttpServlet {
         String passOld = request.getParameter("passOld");
         User user = (User) request.getSession().getAttribute("user");
         String hash = user.getPassword();
+        boolean nameExists = DaoFactory.getUsersDao().userExists(username);
+        boolean rightPass = Password.check(passOld, hash);
+        boolean matchPass = passNew.equals(passCheck);
+        boolean diffPass = passNew.equals(passOld);
 
-            if (username.isEmpty() || email.isEmpty() || passNew.isEmpty() || passCheck.isEmpty() || passOld.isEmpty()) {
-                request.removeAttribute("errorMessage");
-                List<String> errors = new ArrayList<>();
-                errors.add("Please fill out all forms");
-                request.setAttribute("errorMessage", errors);
-                request.getRequestDispatcher("/WEB-INF/users/update.jsp").forward(request, response);
 
+        request.getSession().setAttribute("message", null);
+        if (nameExists || !rightPass || !matchPass) {
+            if (nameExists) {
+                String usererror = "That username already exists. Please try again.";
+                request.getSession().setAttribute("usermessage", usererror);
             }
-
-
-            if (DaoFactory.getUsersDao().userExists(username)) {
-                request.removeAttribute("erroMessage");
-                List<String> errors = new ArrayList<>();
-                errors.add("That username already exists. Please try again");
-                request.setAttribute("errorMessage", errors);
-                request.getRequestDispatcher("/WEB-INF/users/update.jsp").forward(request, response);
-
-                return;
+            if (!rightPass) {
+                String passError = "The old password you entered was invalid. Please try again.";
+                request.getSession().setAttribute("passmessage1", passError);
             }
-
-            if (!Password.check(passOld, hash)) {
-                request.removeAttribute("errorMessage");
-                List<String> errors = new ArrayList<>();
-                errors.add("The old password you entered was invalid. Please try again.");
-                request.setAttribute("errorMessage", errors);
-                request.getRequestDispatcher("/WEB-INF/users/update.jsp").forward(request, response);
-
-                return;
+            if (!matchPass) {
+                String matchError = "The new passwords did not match. Please try again.";
+                request.getSession().setAttribute("passmessage2", matchError);
             }
-
-            if (!passNew.equals(passCheck)) {
-                request.removeAttribute("errorMessage");
-                List<String> errors = new ArrayList<>();
-                errors.add("The new passwords entered did not match.");
-                request.setAttribute("errorMessage", errors);
-                request.getRequestDispatcher("/WEB-INF/users/update.jsp").forward(request, response);
-
-                return;
+            if (diffPass) {
+                String diffError = "Can't reuse same password. Please try again.";
+                request.getSession().setAttribute("samepass", diffError);
             }
-
-            String hashPW = Password.hash(passNew);
-            DaoFactory.getUsersDao().updateUser(user, username, email, hashPW);
-//        User newUser = DaoFactory.getUsersDao().findByUsername(username);
-            User newUser = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
-            request.getSession().setAttribute("username", newUser.getUsername());
-            response.sendRedirect("/profile");
+            request.getSession().setAttribute("name", username);
+            request.getSession().setAttribute("email", email);
+            response.sendRedirect("/updateuser");
+            return;
         }
+        request.getSession().setAttribute("name", null);
+        request.getSession().setAttribute("email", null);
+        request.getSession().setAttribute("message", null);
+        String hashPW = Password.hash(passNew);
+        DaoFactory.getUsersDao().updateUser(user, username, email, hashPW);
+        User newUser = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
+        request.getSession().setAttribute("username", newUser.getUsername());
+        response.sendRedirect("/profile");
     }
-
+}

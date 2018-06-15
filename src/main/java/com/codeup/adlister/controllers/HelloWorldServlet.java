@@ -1,6 +1,7 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
+import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.Category;
 
 import javax.servlet.ServletException;
@@ -17,6 +18,11 @@ public class HelloWorldServlet extends HttpServlet {
         request.setAttribute("ads", DaoFactory.getSqlDao().listAll("ads", "ad"));
 
         List<Object> categories = DaoFactory.getSqlDao().listAll("categories", "category");
+        List<Object> allAds = DaoFactory.getSqlDao().listAll("ads", "ad");
+
+        List<Ad> randomAd = DaoFactory.getAdsDao().randomAds(allAds);
+
+        request.getSession().setAttribute("random", randomAd);
         request.getSession().setAttribute("categories", categories);
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }

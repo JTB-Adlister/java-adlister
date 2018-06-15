@@ -15,6 +15,8 @@ public interface Ads {
 
     List<Ad> listByCat(int catId);
 
+    List<Ad> randomAds(List<Object> ads);
+
     //    void deleteQuery(String adId);
 
 //    Ad findById(int id);

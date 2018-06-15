@@ -85,3 +85,17 @@ body {
     background-color: transparent;
     border: none;
 }
+
+.drop {
+    margin: .5em auto;
+    width: 80%;
+}
+
+.carousel {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.carousel-item {
+    text-align: center;
+}

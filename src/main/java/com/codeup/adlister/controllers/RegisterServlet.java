@@ -33,16 +33,27 @@ public class RegisterServlet extends HttpServlet {
 
 
          // make sure the user did not use a username that is already in use.
+        if(username.isEmpty() || email.isEmpty() || password.isEmpty()){
+            request.removeAttribute("errorMessage");
+            List<String> errors = new ArrayList<>();
+            errors.add("Please fill out all fields");
+            request.setAttribute("errorMessage", errors);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+
+            return;
+
+        }
         if (DaoFactory.getUsersDao().userExists(username)){
-            request.getSession().setAttribute("errorMessage", null);
+            request.removeAttribute("errorMessage");
             List<String> errors = new ArrayList<>();
             errors.add("That username already exists. Please try again");
-            request.getSession().setAttribute("errorMessage", errors);
-            response.sendRedirect("/register");
+            request.setAttribute("errorMessage", errors);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+
 
         } else {
          // create and save a new user
-            request.getSession().setAttribute("errorMessage", null);
+            request.removeAttribute("errorMessage");
             int numberOfRounds = 12;
             password = BCrypt.hashpw(password, BCrypt.gensalt(numberOfRounds));
             DaoFactory.getUsersDao().insert(new User(0, username, email, password, "user"));

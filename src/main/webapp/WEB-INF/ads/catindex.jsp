@@ -6,21 +6,13 @@
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Viewing All The Ads" />
     </jsp:include>
-    <style>
-        .redButton{
-            color: red;
-            background-color: red;
-            border-radius: 50%;
-            height: 25px;
-            width: 25px;
-        }
-    </style>
+
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
 <div class="container">
-    <h1>${catTitle}</h1>
+    <h1 class="text-center">${catTitle}</h1>
 
     <div class="create">
         <form action="/ad_categories" method="post" id="catForm">
@@ -34,14 +26,17 @@
     </div>
 
     <div class="container adContainer col-md-12">
+        <ul class="addList text-center">
         <c:forEach var="ad" items="${ads}">
-            <div class="ads col-md-5">
+            <li class="addItem">
                 <form action="/showinfo" method="post">
                     <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
-                    <button class="adButton">${ad.title}</button>
+                    <button class="adButton adHover">${ad.title} : ${ad.description}</button>
+
                 </form>
-            </div>
+            </li>
         </c:forEach>
+        </ul>
     </div>
 
 </div>

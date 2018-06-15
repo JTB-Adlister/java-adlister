@@ -5,6 +5,7 @@ import com.codeup.adlister.dao.MySQLUsersDao;
 import com.codeup.adlister.models.User;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String pagename = (String) request.getSession().getAttribute("currentpage");
@@ -43,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println();
             if (passwordsDoMatch) {
                 long id = user.getId();
-                request.getSession().setAttribute("errorMessage", null);
+                request.removeAttribute("errorMessage");
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("userId", id);
                 request.getSession().setAttribute("username", user.getUsername());
@@ -57,15 +58,15 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(pagename);
 
             } else {
-                request.getSession().setAttribute("errorMessage", null);
+                request.removeAttribute("errorMessage");
                 List<String> errors = new ArrayList<>();
                 errors.add("Incorrect Password");
-                request.getSession().setAttribute("errorMessage", errors);
+                 request.getSession().setAttribute("errorMessage", errors);
+                 response.sendRedirect("/login");
 
-                response.sendRedirect("/login");
             }
         } else {
-            request.getSession().setAttribute("errorMessage", null);
+            request.removeAttribute("errorMessage");
             List<String> errors = new ArrayList<>();
             errors.add("User does not exist");
             request.getSession().setAttribute("errorMessage", errors);

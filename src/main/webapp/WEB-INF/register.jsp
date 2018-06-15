@@ -8,6 +8,8 @@
 <body>
     <jsp:include page="partials/navbar.jsp" />
     <div class="container">
+        <jsp:include page="partials/errorMessage.jsp" />
+
         <h1>Please fill in your information.</h1>
         <h3 style="color: red;">${errorMessage}</h3>
         <form action="/register" method="post">

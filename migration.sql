@@ -75,3 +75,5 @@ SELECT * from ads where userid = 1;
 
 SELECT * from ads a JOIN adCategory a2 ON a.id = a2.adID JOIN categories c ON a2.catID = c.id;
 
+SELECT * from ads a JOIN adCategory C2 ON a.id = C2.adID JOIN categories c3 ON C2.catID;
+

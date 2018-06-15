@@ -15,7 +15,9 @@ public interface Ads {
 
     List<Ad> listByCat(int catId);
 
+
     List<Ad> randomAds(List<Object> ads);
+
 
     //    void deleteQuery(String adId);
 
@@ -24,7 +26,5 @@ public interface Ads {
 //    Ad findByRandId(long id);
 
 //    List<Ad> listByUser(int id);
-
-
 
 }

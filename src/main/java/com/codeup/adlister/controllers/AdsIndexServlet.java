@@ -20,6 +20,36 @@ public class AdsIndexServlet extends HttpServlet {
         request.setAttribute("ads", DaoFactory.getSqlDao().listAll("ads", "ad"));
         //List<Category> categories = DaoFactory.getCategoriesDao().listAll();
         List<Object> categories = DaoFactory.getSqlDao().listAll("categories", "category");
+
+
+        ArrayList allCategories = new ArrayList<>();
+
+
+        for(Object category: categories) {
+            Category newCat = (Category) category;
+            String title = newCat.getCatTitle();
+            List<Ad> adListByCat = DaoFactory.getAdsDao().listByCat( (int) newCat.getId());
+
+            List<Object> categoryList = new ArrayList<>();
+            categoryList.add(title);
+            categoryList.add(adListByCat);
+            allCategories.add(categoryList);
+        }
+
+
+
+        List<Ad> ranList = new ArrayList<>();
+
+
+        request.getSession().setAttribute("ranList", ranList);
+
+        for(Object item: allCategories){
+            System.out.println(item);
+
+        }
+
+        request.getSession().setAttribute("adsByCat", allCategories);
+
         request.getSession().setAttribute("categories", categories);
         request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
     }

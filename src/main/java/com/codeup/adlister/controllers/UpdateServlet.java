@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "controllers.UpdateServlet", urlPatterns = "/updateuser")
 public class UpdateServlet extends HttpServlet {
@@ -19,7 +17,7 @@ public class UpdateServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/users/update.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String passNew = request.getParameter("passNew");
@@ -31,6 +29,7 @@ public class UpdateServlet extends HttpServlet {
         boolean rightPass = Password.check(passOld, hash);
         boolean matchPass = passNew.equals(passCheck);
         boolean diffPass = passNew.equals(passOld);
+
 
         request.getSession().setAttribute("message", null);
         if (nameExists || !rightPass || !matchPass) {
@@ -55,13 +54,16 @@ public class UpdateServlet extends HttpServlet {
             response.sendRedirect("/updateuser");
             return;
         }
-        request.getSession().setAttribute("name", null);
-        request.getSession().setAttribute("email", null);
-        request.getSession().setAttribute("message", null);
-        String hashPW = Password.hash(passNew);
-        DaoFactory.getUsersDao().updateUser(user, username, email, hashPW);
-        User newUser = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
-        request.getSession().setAttribute("username", newUser.getUsername());
-        response.sendRedirect("/profile");
+
+            int choice = Integer.parseInt(request.getParameter("update"));
+            if (choice == 1) {
+                request.getRequestDispatcher("/WEB-INF/users/UPDuser.jsp").forward(request, response);
+            } else if (choice == 2) {
+                request.getRequestDispatcher("/WEB-INF/users/UPDemail.jsp").forward(request, response);
+            } else if (choice == 3) {
+                request.getRequestDispatcher("WEB-INF/users/UPDpassword.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request, response);
+            }
+        }
     }
-}

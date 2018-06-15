@@ -4,6 +4,7 @@ public class Ad {
     private long id;
     private long userid;
     private long randId;
+    private String catTitle;
 
     public long getRandId() {
         return randId;
@@ -15,6 +16,15 @@ public class Ad {
 
     private String title;
     private String description;
+
+    public Ad(long id, long userid, long randId, String catTitle, String title, String description) {
+        this.id = id;
+        this.userid = userid;
+        this.randId = randId;
+        this.catTitle = catTitle;
+        this.title = title;
+        this.description = description;
+    }
 
     public Ad(long id, long userId, long randId, String title, String description) {
         this.id = id;
@@ -61,5 +71,13 @@ public class Ad {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCatTitle() {
+        return catTitle;
+    }
+
+    public void setCatTitle(String catTitle) {
+        this.catTitle = catTitle;
     }
 }

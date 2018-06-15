@@ -9,6 +9,8 @@
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container">
         <h1>Please Log In</h1>
+        <jsp:include page="partials/errorMessage.jsp" />
+
         <form action="/login" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>

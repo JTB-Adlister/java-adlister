@@ -65,7 +65,7 @@ button:focus {
     margin: 0 auto;
 }
 
-.create, .delete{
+.delete{
     float: right;
     position: absolute;
     right: 1em;
@@ -73,10 +73,11 @@ button:focus {
 
 }
 
-h1, h3 {
-    float: left;
 
-}
+/*h1, h3 {*/
+    /*float: left;*/
+/*}*/
+
 
 
 
@@ -126,5 +127,14 @@ body {
 }
 
 .carousel-item {
+
+}
+
+.centered {
+    margin: 0 auto;
+}
+
+.textcent {
+
     text-align: center;
 }

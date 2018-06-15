@@ -1,21 +1,16 @@
 package com.codeup.adlister.controllers;
 
-import com.codeup.adlister.dao.DaoFactory;
-import com.codeup.adlister.models.User;
-import com.codeup.adlister.util.Password;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "controllers.UpdateServlet", urlPatterns = "/updateuser")
 public class UpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
         request.getRequestDispatcher("/WEB-INF/users/update.jsp").forward(request, response);
     }
 
@@ -55,14 +50,17 @@ public class UpdateServlet extends HttpServlet {
             request.getSession().setAttribute("email", email);
             response.sendRedirect("/updateuser");
             return;
+=======
+        int choice = Integer.parseInt(request.getParameter("update"));
+        if (choice == 1) {
+            request.getRequestDispatcher("/WEB-INF/users/UPDuser.jsp").forward(request, response);
+        } else if (choice == 2) {
+            request.getRequestDispatcher("/WEB-INF/users/UPDemail.jsp").forward(request, response);
+        } else if (choice == 3) {
+            request.getRequestDispatcher("WEB-INF/users/UPDpassword.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("WEB-INF/profile.jsp").forward(request, response);
+>>>>>>> 1d960026149fd1b9709a702447cb97a865340c77
         }
-        request.getSession().setAttribute("name", null);
-        request.getSession().setAttribute("email", null);
-        request.getSession().setAttribute("message", null);
-        String hashPW = Password.hash(passNew);
-        DaoFactory.getUsersDao().updateUser(user, username, email, hashPW);
-        User newUser = (User) DaoFactory.getSqlDao().findBySearch("users", "username", username);
-        request.getSession().setAttribute("username", newUser.getUsername());
-        response.sendRedirect("/profile");
     }
 }

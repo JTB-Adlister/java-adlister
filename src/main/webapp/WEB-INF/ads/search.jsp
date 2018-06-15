@@ -9,23 +9,23 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/partials/navbar.jsp" %>
-<h1>Viewing All Results</h1>
-<br>
-<div class="container adContainer">
+
+<div class="container">
+    <h1>Viewing All Results</h1>
     <h3>${message}</h3>
-    <c:forEach var="ad" items="${ads}">
-        <div class="ads col-md-5">
+    <div class="container adContainer col-md-12">
+        <ul class="addList text-center">
+            <c:forEach var="ad" items="${ads}">
+                <li class="addItem">
+                    <form action="/showinfo" method="post">
+                        <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
+                        <button class="adButton adHover">${ad.title} : ${ad.description}</button>
 
-                <form action="/showinfo" method="post">
-                    <label for="adInfo"><c:out value="${ad.title}"></c:out></label>
-                    <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
-                    <input type="Submit" value="View Ad">
-
-                </form>
-
-
-        </div>
-    </c:forEach>
+                    </form>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
 </div>
 <%@ include file="/WEB-INF/partials/scripts.jsp"%>
 </body>

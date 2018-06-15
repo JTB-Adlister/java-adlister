@@ -73,4 +73,5 @@ insert into users (userrole, username, email, password) VALUES ('admin', 'shake'
 
 SELECT * from ads where userid = 1;
 
+SELECT * from ads a JOIN adCategory a2 ON a.id = a2.adID JOIN categories c ON a2.catID = c.id;
 

@@ -12,7 +12,6 @@
 
 <div class="container">
 
-
         <h1>Welcome, ${sessionScope.username}!</h1>
         <div class="create">
             <form action="/updateuser" method="get">
@@ -24,8 +23,8 @@
         <c:forEach var="ad" items="${userAds}">
             <div class="ads col-md-5">
                 <form action="showinfo" method="post">
-                    <label for="adInfo">${ad.title}</label>
-                    <input id="adInfo" name="adInfo" type="submit" value=${ad.id}>
+                    <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
+                    <button class="adButton">${ad.title}</button>
                 </form>
             </div>
         </c:forEach>

@@ -24,16 +24,18 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
 <div class="container">
-    <h1>Here Are all the ads!</h1>
+    <h1>Select a Category</h1>
 
     <div class="container categories col-md-12">
         <div class="ads col-md-12">
             <ul>
                 <form action="/ad_categories" method="post" id="catForm">
                     <c:forEach var="category" items="${categories}">
-                        <button name="categoryList" form="catForm" value="${category.id}">
-                                ${category.catTitle}
-                        </button>
+                        <div class="ads col-md-2">
+                            <button class="adButton" name="categoryList" form="catForm" value="${category.id}">
+                                    ${category.catTitle}
+                            </button>
+                        </div>
                     </c:forEach>
                 </form>
             </ul>

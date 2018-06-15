@@ -18,8 +18,8 @@
         <c:forEach var="ad" items="${viewUserAds}">
             <div class="ads col-md-5">
                 <form action="showinfo" method="post">
-                    <label for="adInfo">${ad.title}</label>
-                    <input id="adInfo" name="adInfo" type="submit" value=${ad.id}>
+                    <input id="adInfo" name="adInfo" type="hidden" value=${ad.id}>
+                    <button class="adButton">${ad.title}</button>
                 </form>
             </div>
         </c:forEach>

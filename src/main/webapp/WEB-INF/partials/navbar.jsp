@@ -62,7 +62,13 @@
                     <button type="submit" class="btn btn-primary btn-block">Login</button>
                 </div>
             </form>
-            <button class="btn btn-primary btn-block"><a href="/register">Register</a></button>
+
+                <form action="/register" method="GET" class="form" role="form">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                </form>
+
         </li>
     </ul>
 

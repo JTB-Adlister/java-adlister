@@ -36,15 +36,10 @@ public class AdsIndexServlet extends HttpServlet {
             allCategories.add(categoryList);
         }
 
-        List<Object> ads = DaoFactory.getSqlDao().listAll("ads", "ad");
-        Ad randomOne = DaoFactory.getAdsDao().randomAd(ads);
-        Ad randomTwo = DaoFactory.getAdsDao().randomAd(ads);
-        Ad randomThree = DaoFactory.getAdsDao().randomAd(ads);
+
 
         List<Ad> ranList = new ArrayList<>();
-        ranList.add(randomOne);
-        ranList.add(randomTwo);
-        ranList.add(randomThree);
+
 
         request.getSession().setAttribute("ranList", ranList);
 

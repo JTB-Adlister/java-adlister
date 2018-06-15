@@ -42,7 +42,12 @@ public class CatIndexServlet extends HttpServlet {
 
         request.setAttribute("catTitle", category.getCatTitle());
         List<Ad> ads = DaoFactory.getAdsDao().listByCat(id);
-
+        for(Ad ad: ads){
+            System.out.println("title " + ad.getTitle());
+            System.out.println("description " + ad.getDescription());
+            System.out.println("catTitle " + ad.getCatTitle());
+            System.out.println("id" + ad.getId());
+        }
         request.getSession().setAttribute("ads", ads);
         request.getRequestDispatcher("/WEB-INF/ads/catindex.jsp").forward(request,response);
     }

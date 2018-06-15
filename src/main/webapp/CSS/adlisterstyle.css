@@ -10,6 +10,30 @@ li {
     padding-right: 2em;
 }
 
+.adHover:hover{
+    color: lightcyan;
+    font-style: italic;
+}
+
+.addItem{
+    display: block;
+    margin-top: 1em;
+    padding: 1em;
+    border: 3px solid black;
+    height: 4em;
+    background-color: #0f8dd7;
+    color: #303e48;
+}
+
+.addList{
+    margin-left: 5%;
+    width: 90%;
+    padding: 2em;
+    background-color: #303e48;
+    border: 3px solid #0f8dd7;
+    align-content: center;
+}
+
 a, .login{
     color: #FFF;
 }
@@ -45,11 +69,16 @@ button:focus {
     float: right;
     position: absolute;
     right: 1em;
+    z-index: 2;
+
 }
 
 h1, h3 {
     float: left;
+
 }
+
+
 
 .adContainer, .categories {
     clear: both;

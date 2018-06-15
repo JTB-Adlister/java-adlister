@@ -166,7 +166,7 @@ public class MySQLAdsDao implements Ads {
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
         while (rs.next()) {
-            ads.add(extractAdCat(rs));
+            ads.add(extractAd(rs));
         }
         return ads;
     }
@@ -174,7 +174,7 @@ public class MySQLAdsDao implements Ads {
     private List<Ad> createAdsFromResultsCat(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
         while (rs.next()) {
-            ads.add(extractAdCat(rs));
+            ads.add(extractAd(rs));
         }
         return ads;
     }
